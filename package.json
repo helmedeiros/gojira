@@ -11,5 +11,8 @@
     "url": "http://github.com/helmedeiros/gojira.git"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "request": "^2.44.0"
+  }
 }
