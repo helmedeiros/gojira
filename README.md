@@ -1,4 +1,4 @@
 gojira
 =========
 
-Serie os tasks to extract Jira data.
+Series of tasks to extract Jira data.
