@@ -1,5 +1,4 @@
 var request = require("request");
-//var jsoncsv = require('json-csv')
 var fs = require("fs");
 
 var url = "https://jira.example.com/rest/greenhopper/1.0/rapid/charts/controlchart?rapidViewId=1853&swimlaneId=10450&swimlaneId=10926&swimlaneId=11138&from=2014-07-17&to=2019-09-10&os_username=tv_pas&os_password=tvuser";
