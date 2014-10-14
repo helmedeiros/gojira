@@ -45,7 +45,9 @@ var issues_url = function() {
     url += 'component="Example Component"';
     url += AND;
     url += '"Work Group"=Application';
-    url += '&maxResults=2';
+    url += AND;
+    url += 'type=Story';
+    url += '&maxResults=300';
     url += '&os_username=tv_pas&os_password=tvuser';
     return url;
 }
