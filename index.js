@@ -16,23 +16,38 @@ var save_to_file = function(file_name, content) {
     });
 }
 
-var lead_times = function(issues, issue_key) {
+var populate_times = function(line, issues, issue_key) {
     var issue = _.find(issues, function(i) {
         return i.key == issue_key;
     });
-    console.log("Issue: " + issue);
     if (issue) {
         var wt = issue.workingTime;
-        var backlog = parseInt((wt[0] / day) * 10) / 10;
-        var in_progress = parseInt((wt[1] / day) * 10) / 10;
-        var validation = parseInt((wt[2] / day) * 10) / 10;
-        var sign_off = parseInt((wt[3] / day) * 10) / 10;
-        var done = parseInt((wt[4] / day) * 10) / 10;
-        var lead_time = in_progress + validation + sign_off;
-        return  lead_time + "," + backlog + "," + in_progress + "," + validation + "," + sign_off + "," + done + ",";
-    } else {
-        return  0 + "," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0 + ",";
+        line.backlog = parseInt((wt[0] / day) * 10) / 10;
+        line.in_progress = parseInt((wt[1] / day) * 10) / 10;
+        line.validation = parseInt((wt[2] / day) * 10) / 10;
+        line.sign_off = parseInt((wt[3] / day) * 10) / 10;
+        line.done = parseInt((wt[4] / day) * 10) / 10;
+        line.lead_time = line.in_progress + line.validation + line.sign_off;
     }
+}
+
+var csv_line = function(line) {
+    var csv = line.type + COMMA;
+    csv += line.key + COMMA;
+    csv += line.summary + COMMA;
+    csv += line.status + COMMA;
+    csv += line.points + COMMA;
+    csv += line.projected_lead_time + COMMA;
+    csv += line.lead_time + COMMA;
+    csv += line.backlog + COMMA;
+    csv += line.in_progress + COMMA;
+    csv += line.validation + COMMA;
+    csv += line.sign_off + COMMA;
+    csv += line.done + COMMA;
+    csv += (line.lead_time - line.projected_lead_time) + COMMA;
+    csv += ((line.lead_time) / line.projected_lead_time) + COMMA;
+    csv += "\n";
+    return csv;
 }
 
 var issues_url = function() {
@@ -73,16 +88,16 @@ request(url, function(error, response, body) {
 
             for (var x=0; x < issues.length; x++) {
                 var issue = issues[x];
-                csv += issue.fields.issuetype.name + COMMA;
-                csv += issue.key + COMMA;
-                csv += "\"" + issue.fields.summary + "\",";
-                csv += issue.fields.status.name + COMMA;
-                csv += issue.fields.customfield_10003 + COMMA;
-                csv += issue.fields.customfield_10003 * 1.25 + COMMA;
-                csv += lead_times(durations, issue.key);
-                csv += "Over Under???,";
-                csv += "Over Under %???";
-                csv += "\n";
+                var line = function() {};
+                line.type = issue.fields.issuetype.name;
+                line.key = issue.key;
+                line.summary = "\"" + issue.fields.summary + "\"";
+                line.status = issue.fields.status.name;
+                line.points = issue.fields.customfield_10003;
+                line.projected_lead_time = issue.fields.customfield_10003 * 1.25;
+                populate_times(line, durations, issue.key);
+
+                csv += csv_line(line);
             }
 
             save_to_file("/tmp/pete.csv", csv);
