@@ -13,5 +13,5 @@ Clone the repository:
 Install dependencies:
 <pre>npm install</pre>
 
-Run the robot:
+GoJira!:
 <pre>node index.js</pre>
