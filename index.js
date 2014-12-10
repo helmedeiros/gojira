@@ -24,6 +24,9 @@ var populate_times = function(line, issues, issue_key) {
         var wt = issue.workingTime;
         line.backlog = parseInt((wt[0] / day) * 10) / 10;
         line.in_progress = parseInt((wt[1] / day) * 10) / 10;
+        if (line.key === 'DEMO-905') {
+            line.in_progress = line.in_progress - 22;
+        }
         line.validation = parseInt((wt[2] / day) * 10) / 10;
         line.sign_off = parseInt((wt[3] / day) * 10) / 10;
         line.done = parseInt((wt[4] / day) * 10) / 10;
@@ -67,19 +70,6 @@ var issues_url = function() {
     return url;
 }
 var durations = [];
-
-
-swimlane=11466
-swimlane=10450
-swimlane=10926
-swimlane=11263
-swimlane=11138
-
-swimlaneId=11466
-swimlaneId=10450
-swimlaneId=10926
-swimlaneId=11263
-swimlaneId=1113
 
 var url = "https://jira.example.com/rest/greenhopper/1.0/rapid/charts/controlchart?rapidViewId=1853&swimlaneId=11466&swimlaneId=10450&swimlaneId=10926&swimlaneId=11263&swimlaneId=11138&from=2014-07-17&to=2015-09-10&os_username=tv_pas&os_password=tvuser";
 request(url, function(error, response, body) {
