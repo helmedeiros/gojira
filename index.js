@@ -1,20 +1,12 @@
+var GOJIRA = GOJIRA || {};
+
+GOJIRA.util = require('./util');
+
 var request = require("request");
-var fs = require("fs");
 var _ = require("underscore");
 
 var day = 60 * 60 * 24 * 1000;
 var COMMA = ',';
-
-var save_to_file = function (file_name, content) {
-    fs.writeFile(file_name, content, function (err) {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log(content);
-            console.log("The file was saved! " + file_name);
-        }
-    });
-};
 
 var populate_times = function (line, issues, issue_key) {
     var issue = _.find(issues, function (i) {
@@ -58,7 +50,7 @@ var issues_url = function () {
     var url = 'https://jira.example.com/rest/api/2/search?';
     url += 'jql=project=DEMO';
     url += AND;
-    url += 'status=Done'
+    url += 'status=Done';
     url += AND;
     url += 'component="Example Component"';
     url += AND;
@@ -105,7 +97,7 @@ request(url, function (error, response, body) {
                 csv += csv_line(line);
             }
 
-            save_to_file("/tmp/pete.csv", csv);
+            GOJIRA.util.save_to_file("/tmp/pete.csv", csv);
         }
     })
 );
