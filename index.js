@@ -7,7 +7,6 @@ var request = require("request");
 var _ = require("underscore");
 
 var day = 60 * 60 * 24 * 1000;
-var COMMA = ',';
 
 var populate_times = function (line, issues, issue_key) {
     var issue = _.find(issues, function (i) {
@@ -62,7 +61,7 @@ request(url, function (error, response, body) {
             var json = JSON.parse(body);
             var issues = json.issues;
 
-            var csv = "Type,Key,Summary,Status,Story Points,Projected Lead Time,Actual Lead Time,Backlog,In Progress,Validation,Sign Off,Done,Over/Under,Over/Under %\n";
+            var csv = GOJIRA.csv.header();
 
             for (var x = 0; x < issues.length; x++) {
                 var issue = issues[x];
