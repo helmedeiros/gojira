@@ -1,6 +1,7 @@
 var GOJIRA = GOJIRA || {};
 
 GOJIRA.util = require('./util');
+GOJIRA.csv = require('./csv');
 
 var request = require("request");
 var _ = require("underscore");
@@ -24,25 +25,6 @@ var populate_times = function (line, issues, issue_key) {
         line.done = parseInt((wt[4] / day) * 10) / 10;
         line.lead_time = line.in_progress + line.validation + line.sign_off;
     }
-};
-
-var csv_line = function (line) {
-    var csv = line.type + COMMA;
-    csv += line.key + COMMA;
-    csv += line.summary + COMMA;
-    csv += line.status + COMMA;
-    csv += line.points + COMMA;
-    csv += line.projected_lead_time + COMMA;
-    csv += line.lead_time + COMMA;
-    csv += line.backlog + COMMA;
-    csv += line.in_progress + COMMA;
-    csv += line.validation + COMMA;
-    csv += line.sign_off + COMMA;
-    csv += line.done + COMMA;
-    csv += (line.lead_time - line.projected_lead_time) + COMMA;
-    csv += ((line.lead_time) / line.projected_lead_time) + COMMA;
-    csv += "\n";
-    return csv;
 };
 
 var issues_url = function () {
@@ -84,17 +66,17 @@ request(url, function (error, response, body) {
 
             for (var x = 0; x < issues.length; x++) {
                 var issue = issues[x];
-                var line = function () {
+                var issue_line = function () {
                 };
-                line.type = issue.fields.issuetype.name;
-                line.key = issue.key;
-                line.summary = "\"" + issue.fields.summary + "\"";
-                line.status = issue.fields.status.name;
-                line.points = issue.fields.customfield_10003;
-                line.projected_lead_time = issue.fields.customfield_10003 * 1.25;
-                populate_times(line, durations, issue.key);
+                issue_line.type = issue.fields.issuetype.name;
+                issue_line.key = issue.key;
+                issue_line.summary = "\"" + issue.fields.summary + "\"";
+                issue_line.status = issue.fields.status.name;
+                issue_line.points = issue.fields.customfield_10003;
+                issue_line.projected_lead_time = issue.fields.customfield_10003 * 1.25;
+                populate_times(issue_line, durations, issue.key);
 
-                csv += csv_line(line);
+                csv += GOJIRA.csv.from(issue_line);
             }
 
             GOJIRA.util.save_to_file("/tmp/pete.csv", csv);
