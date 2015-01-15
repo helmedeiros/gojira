@@ -15,3 +15,13 @@ Install dependencies:
 
 GoJira!:
 <pre>node index.js</pre>
+
+
+Testing
+-------
+
+Install jasmine-node:
+<pre>npm install jasmine-node -g</pre>
+
+Run unit tests:
+<pre>jasmine-node spec</pre>
