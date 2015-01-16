@@ -1,11 +1,9 @@
-gojira
-=========
+# gojira
 
 Series of tasks to extract Jira data.
 
 
-Installation
-============
+## Installation
 
 Clone the repository:
 <pre>git clone git@github.com:helmedeiros/gojira.git</pre>
@@ -16,19 +14,22 @@ Install dependencies:
 GoJira!:
 <pre>node index.js</pre>
 
-Project configuration
-=====================
 
-In order to extract the stories you want a minimum configuration is needed. To change this information, please refer to the file:
-<pre>project_config.json</pre>
+## Project configuration
 
-'project_key': Your project key in Jira (DEMO, RIS3, etc) - (Required).
-'component': Your component (Not required).
-'work_group': Should be Application. You can try Infra for example (Not required).
-'max_results': It' using 300 for performance reasons. You can increment if missing stories.
+In order to extract the stories you want a minimum configuration is needed. To change this information, please refer to the file:<br />
+<b>project_config.json</b>
 
-Testing
-=======
+<br />
+<br />
+
+<b>project_key</b>: Your project key in Jira (DEMO, RIS3, etc) <i>(Required)</i>.<br />
+<b>component</b>: Your component <i>(Not required)</i>.<br />
+<b>work_group</b>: Should be Application. You can try Infra for example <i>(Not required)</i>.<br />
+<b>max_results</b>: It will default to 300 for performance reasons. You can increment/decrement if needed.<br />
+
+
+## Testing
 
 Install jasmine-node:
 <pre>npm install jasmine-node -g</pre>
