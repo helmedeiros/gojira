@@ -1,4 +1,4 @@
-var csv = require("../csv");
+var csv = require("../lib/csv");
 
 describe("csv", function () {
     it("should create a csv from line", function () {
