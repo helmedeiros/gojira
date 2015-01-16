@@ -1,7 +1,7 @@
 module.exports = {
     COMMA: ',',
     header: function() {
-      return '"Type,Key,Summary,Status,Story Points,Projected Lead Time,Actual Lead Time,Backlog,In Progress,Validation,Sign Off,Done,Over/Under,Over/Under %\n"';
+      return 'Type,Key,Summary,Status,Story Points,Projected Lead Time,Actual Lead Time,Backlog,In Progress,Validation,Sign Off,Done,Over/Under,Over/Under %\n';
     },
     from: function (issue) {
         var csv = issue.type + this.COMMA;
