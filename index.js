@@ -1,5 +1,6 @@
 var GOJIRA = GOJIRA || {};
 
+GOJIRA.config = require('./project_config');
 GOJIRA.util = require('./util');
 GOJIRA.csv = require('./csv');
 GOJIRA.url = require('./lib/url');
@@ -27,26 +28,10 @@ var populate_times = function (line, issues, issue_key) {
     }
 };
 
-var issues_url = function () {
-    var AND = '+and+';
-    var url = 'https://jira.example.com/rest/api/2/search?';
-    url += 'jql=project=DEMO';
-    url += AND;
-    url += 'status=Done';
-    url += AND;
-    url += 'component="Example Component"';
-    url += AND;
-    url += '"Work Group"=Application';
-    url += AND;
-    url += 'type=Story';
-    url += '&maxResults=300';
-    url += '&os_username=tv_pas&os_password=tvuser';
-    return url;
-};
-
 var durations = [];
 
-var issues_url = GOJIRA.url.build_for('DEMO', 'Example Component', 'Application');
+var issues_url = GOJIRA.url.build_for(GOJIRA.config.project_key, GOJIRA.config.component,
+    GOJIRA.config.work_group, GOJIRA.config.max_results);
 
 var url = "https://jira.example.com/rest/greenhopper/1.0/rapid/charts/controlchart?rapidViewId=1853&swimlaneId=11466&swimlaneId=10450&swimlaneId=10926&swimlaneId=11263&swimlaneId=11138&from=2014-07-17&to=2015-09-10&os_username=tv_pas&os_password=tvuser";
 request(url, function (error, response, body) {
