@@ -21,8 +21,8 @@ In order to extract the stories you want a minimum configuration is needed. To c
 <b>project_config.json</b>
 
 <br />
-<br />
 
+<b>control_chart</b>: Your project control chart. You can find it on the Report Tab of the Scrum board. <i>(Required)</i>.<br />
 <b>project_key</b>: Your project key in Jira (DEMO, RIS3, etc) <i>(Required)</i>.<br />
 <b>component</b>: Your component <i>(Not required)</i>.<br />
 <b>work_group</b>: Should be Application. You can try Infra for example <i>(Not required)</i>.<br />
