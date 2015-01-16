@@ -71,7 +71,7 @@ request(control_chart_url, function (error, response, body) {
                     csv += GOJIRA.csv.from(issue_line);
                 }
 
-                GOJIRA.util.save_to_file("/tmp/pete.csv", csv);
+                GOJIRA.util.save_to_file(GOJIRA.config.output_csv_path, csv);
             }
         }
     })

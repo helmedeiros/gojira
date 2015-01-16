@@ -27,6 +27,7 @@ In order to extract the stories you want a minimum configuration is needed. To c
 <b>component</b>: Your component <i>(Not required)</i>.<br />
 <b>work_group</b>: Should be Application. You can try Infra for example <i>(Not required)</i>.<br />
 <b>max_results</b>: It will default to 300 for performance reasons. You can increment/decrement if needed.<br />
+<b>output_csv_path</b>: Where to save the generated CSV so you can open in excel and create all your wonderful charts.<br />
 
 
 ## Testing

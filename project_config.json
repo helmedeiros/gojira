@@ -3,5 +3,6 @@
   "project_key": "DEMO",
   "component": "Example Component",
   "work_group": "Application",
-  "max_results": "300"
+  "max_results": "300",
+  "output_csv_path": "/tmp/output.csv"
 }
