@@ -2,6 +2,7 @@ var GOJIRA = GOJIRA || {};
 
 GOJIRA.util = require('./util');
 GOJIRA.csv = require('./csv');
+GOJIRA.url = require('./lib/url');
 
 var request = require("request");
 var _ = require("underscore");
@@ -45,6 +46,8 @@ var issues_url = function () {
 
 var durations = [];
 
+var issues_url = GOJIRA.url.build_for('DEMO', 'Example Component', 'Application');
+
 var url = "https://jira.example.com/rest/greenhopper/1.0/rapid/charts/controlchart?rapidViewId=1853&swimlaneId=11466&swimlaneId=10450&swimlaneId=10926&swimlaneId=11263&swimlaneId=11138&from=2014-07-17&to=2015-09-10&os_username=tv_pas&os_password=tvuser";
 request(url, function (error, response, body) {
     if (error) {
@@ -54,31 +57,36 @@ request(url, function (error, response, body) {
         durations = json.issues;
     }
 }).pipe(
-    request(issues_url(), function (error, response, body) {
+    request(issues_url, function (error, response, body) {
         if (error) {
             console.log(error);
         } else {
             var json = JSON.parse(body);
             var issues = json.issues;
 
-            var csv = GOJIRA.csv.header();
+            if (!issues) {
+                console.error('No issues returned. Please check your project, component and work group settings.\n')
+            } else {
 
-            for (var x = 0; x < issues.length; x++) {
-                var issue = issues[x];
-                var issue_line = function () {
-                };
-                issue_line.type = issue.fields.issuetype.name;
-                issue_line.key = issue.key;
-                issue_line.summary = "\"" + issue.fields.summary + "\"";
-                issue_line.status = issue.fields.status.name;
-                issue_line.points = issue.fields.customfield_10003;
-                issue_line.projected_lead_time = issue.fields.customfield_10003 * 1.25;
-                populate_times(issue_line, durations, issue.key);
+                var csv = GOJIRA.csv.header();
 
-                csv += GOJIRA.csv.from(issue_line);
+                for (var x = 0; x < issues.length; x++) {
+                    var issue = issues[x];
+                    var issue_line = function () {
+                    };
+                    issue_line.type = issue.fields.issuetype.name;
+                    issue_line.key = issue.key;
+                    issue_line.summary = "\"" + issue.fields.summary + "\"";
+                    issue_line.status = issue.fields.status.name;
+                    issue_line.points = issue.fields.customfield_10003;
+                    issue_line.projected_lead_time = issue.fields.customfield_10003 * 1.25;
+                    populate_times(issue_line, durations, issue.key);
+
+                    csv += GOJIRA.csv.from(issue_line);
+                }
+
+                GOJIRA.util.save_to_file("/tmp/pete.csv", csv);
             }
-
-            GOJIRA.util.save_to_file("/tmp/pete.csv", csv);
         }
     })
 );
