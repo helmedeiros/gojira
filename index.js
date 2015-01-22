@@ -10,21 +10,35 @@ var _ = require("underscore");
 
 var day = 60 * 60 * 24 * 1000;
 
-var populate_times = function (line, issues, issue_key) {
+var populate_times = function (line, issues, issue_key, csv_columns) {
     var issue = _.find(issues, function (i) {
         return i.key == issue_key;
     });
     if (issue) {
         var wt = issue.workingTime;
-        line.backlog = parseInt((wt[0] / day) * 10) / 10;
-        line.in_progress = parseInt((wt[1] / day) * 10) / 10;
-        if (line.key === 'DEMO-905') {
-            line.in_progress = line.in_progress - 22;
+
+        var columns_size = csv_columns.split(',').length;
+        console.log('COLUMNS SIZE: ' + columns_size + '\n\n');
+        var time_line = '';
+        var lead_time = 0;
+        for (var columns = 0; columns < columns_size; columns++) {
+            if (columns === 0) {
+                time_line += parseInt((wt[columns] / day) * 10) / 10;
+            } else if (columns == columns_size - 1) {
+                time_line += parseInt((wt[columns] / day) * 10) / 10;
+            } else {
+                lead_time += parseInt((wt[columns] / day) * 10) / 10;
+                time_line += parseInt((wt[columns] / day) * 10) / 10;
+            }
+            time_line += ',';
+
         }
-        line.validation = parseInt((wt[2] / day) * 10) / 10;
-        line.sign_off = parseInt((wt[3] / day) * 10) / 10;
-        line.done = parseInt((wt[4] / day) * 10) / 10;
-        line.lead_time = line.in_progress + line.validation + line.sign_off;
+
+        //if (line.key === 'DEMO-905') {
+        //    line.in_progress = line.in_progress - 22;
+        //}
+        line.times = time_line;
+        line.lead_time = lead_time;
     }
 };
 
@@ -67,7 +81,7 @@ request(control_chart_url, function (error, response, body) {
                     issue_line.status = issue.fields.status.name;
                     issue_line.points = issue.fields.customfield_10003;
                     issue_line.projected_lead_time = issue.fields.customfield_10003 * 1.25;
-                    populate_times(issue_line, durations, issue.key);
+                    populate_times(issue_line, durations, issue.key, GOJIRA.config.csv_header_columns);
 
                     csv += GOJIRA.csv.from(issue_line);
                 }
