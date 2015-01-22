@@ -3,6 +3,7 @@
   "project_key": "DEMO",
   "component": "Example Component",
   "work_group": "Application",
+  "csv_header_columns": "Backlog,In Progress,Validation,Sign Off,Done",
   "max_results": "300",
   "output_csv_path": "/tmp/output.csv",
   "user": "tv_pas",

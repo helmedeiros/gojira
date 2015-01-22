@@ -55,7 +55,7 @@ request(control_chart_url, function (error, response, body) {
                 console.error('No issues returned. Please check your project, component and work group settings.\n')
             } else {
 
-                var csv = GOJIRA.csv.header();
+                var csv = GOJIRA.csv.header(GOJIRA.config.csv_header_columns);
 
                 for (var x = 0; x < issues.length; x++) {
                     var issue = issues[x];

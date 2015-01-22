@@ -1,6 +1,12 @@
 var csv = require("../lib/csv");
 
 describe("csv", function () {
+    it("should create a custom header", function () {
+        var header = csv.header("Backlog,In Progress,Validation,Ready For Sign Off,Sign Off,Done");
+
+        var expectedHeader = 'Type,Key,Summary,Status,Story Points,Projected Lead Time,Actual Lead Time,Backlog,In Progress,Validation,Ready For Sign Off,Sign Off,Done,Over/Under,Over/Under %\n';
+        expect(header).toBe(expectedHeader);
+    });
     it("should create a csv from line", function () {
         var issue = function() {
         };
