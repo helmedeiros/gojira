@@ -31,9 +31,10 @@ var populate_times = function (line, issues, issue_key) {
 var durations = [];
 
 var issues_url = GOJIRA.url.issues(GOJIRA.config.project_key, GOJIRA.config.component,
-    GOJIRA.config.work_group, GOJIRA.config.max_results);
+    GOJIRA.config.work_group, GOJIRA.config.max_results, GOJIRA.config.user, GOJIRA.config.password);
 
-var control_chart_url = GOJIRA.url.control_chart(GOJIRA.config.control_chart);
+var control_chart_url = GOJIRA.url.control_chart(GOJIRA.config.control_chart, GOJIRA.config.user,
+    GOJIRA.config.password, GOJIRA.config.from, GOJIRA.config.to);
 
 request(control_chart_url, function (error, response, body) {
     if (error) {

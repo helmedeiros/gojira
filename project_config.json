@@ -4,5 +4,9 @@
   "component": "Example Component",
   "work_group": "Application",
   "max_results": "300",
-  "output_csv_path": "/tmp/output.csv"
+  "output_csv_path": "/tmp/output.csv",
+  "user": "tv_pas",
+  "password": "tvuser",
+  "from": "2014-07-01",
+  "to": "2015-12-31"
 }
