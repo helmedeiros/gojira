@@ -80,7 +80,7 @@ request(control_chart_url, function (error, response, body) {
                     issue_line.summary = "\"" + issue.fields.summary + "\"";
                     issue_line.status = issue.fields.status.name;
                     issue_line.points = issue.fields.customfield_10003;
-                    issue_line.projected_lead_time = issue.fields.customfield_10003 * 1.25;
+                    issue_line.projected_lead_time = issue.fields.customfield_10003 * GOJIRA.config.points_per_day;
                     populate_times(issue_line, durations, issue.key, GOJIRA.config.csv_header_columns);
 
                     csv += GOJIRA.csv.from(issue_line);
