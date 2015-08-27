@@ -29,6 +29,7 @@ In order to extract the stories you want a minimum configuration is needed. To c
 <b>max_results</b>: It will default to 300 for performance reasons. You can increment/decrement if needed.<br />
 <b>output_csv_path</b>: Where to save the generated CSV so you can open in excel and create all your wonderful charts.<br />
 <b>points_per_day</b>: The factor to use to calculate projected lead time for stories. Default is 1.25 (meaning a pair can finish a 4-point story in a 2-week sprint).<br />
+<b>first_column_to_count</b>: Defines the first column to be counted in the sum for Actual Lead Time. Default is 1, meaning the second column (i.e. skipping Backlog). If you have an intermediate stage between Backlog and In Progress (e.g. Ready for Dev), set this to 2.<br />
 
 ## Testing
 
