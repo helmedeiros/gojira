@@ -22,7 +22,7 @@ var populate_times = function (line, issues, issue_key, csv_columns) {
         var time_line = '';
         var lead_time = 0;
         for (var columns = 0; columns < columns_size; columns++) {
-            if (columns === 0) {
+            if (columns < GOJIRA.config.first_column_to_count) {
                 time_line += parseInt((wt[columns] / day) * 10) / 10;
             } else if (columns == columns_size - 1) {
                 time_line += parseInt((wt[columns] / day) * 10) / 10;

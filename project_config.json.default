@@ -1,0 +1,15 @@
+{
+  "control_chart": "https://jira.example.com/secure/RapidBoard.jspa?rapidView=1853&view=reporting&chart=controlChart&swimlane=12000&swimlane=12145&swimlane=12146",
+  "project_key": "DEMO",
+  "component": "Example Component",
+  "work_group": "Application",
+  "csv_header_columns": "Backlog,In Progress,Validation,Sign Off,Done",
+  "max_results": "300",
+  "output_csv_path": "/tmp/output.csv",
+  "user": "tv_pas",
+  "password": "tvuser",
+  "from": "2014-07-01",
+  "to": "2015-12-31",
+  "first_column_to_count": "1",
+  "points_per_day": "1.25"
+}
