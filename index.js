@@ -10,8 +10,8 @@ var _ = require("underscore");
 
 var day = 60 * 60 * 24 * 1000;
 
-var populate_times = function (line, issues, issue_key, csv_columns) {
-    var issue = _.find(issues, function (i) {
+var populate_times = function(line, issues, issue_key, csv_columns) {
+    var issue = _.find(issues, function(i) {
         return i.key == issue_key;
     });
     if (issue) {
@@ -42,52 +42,62 @@ var populate_times = function (line, issues, issue_key, csv_columns) {
     }
 };
 
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
 var durations = [];
 
 var issues_url = GOJIRA.url.issues(GOJIRA.config.project_key, GOJIRA.config.component,
-    GOJIRA.config.work_group, GOJIRA.config.max_results, GOJIRA.config.user, GOJIRA.config.password);
+    GOJIRA.config.work_group, GOJIRA.config.max_results, GOJIRA.config.user,
+    GOJIRA.config.password);
 
-var control_chart_url = GOJIRA.url.control_chart(GOJIRA.config.control_chart, GOJIRA.config.user,
+var control_chart_url = GOJIRA.url.control_chart(GOJIRA.config.control_chart,
+    GOJIRA.config.user,
     GOJIRA.config.password, GOJIRA.config.from, GOJIRA.config.to);
 
-request(control_chart_url, function (error, response, body) {
+request(control_chart_url, function(error, response, body) {
     if (error) {
         console.log(error);
     } else {
         var json = JSON.parse(body);
         durations = json.issues;
     }
-}).pipe(
-    request(issues_url, function (error, response, body) {
-        if (error) {
-            console.log(error);
+});
+
+
+request(issues_url, function(error, response, body) {
+    if (error) {
+        console.log(error);
+    } else {
+        var json = JSON.parse(body);
+        var issues = json.issues;
+
+        if (!issues) {
+            console.error(
+                'No issues returned. Please check your project, component and work group settings.\n'
+            )
         } else {
-            var json = JSON.parse(body);
-            var issues = json.issues;
 
-            if (!issues) {
-                console.error('No issues returned. Please check your project, component and work group settings.\n')
-            } else {
+            var csv = GOJIRA.csv.header(GOJIRA.config.csv_header_columns);
 
-                var csv = GOJIRA.csv.header(GOJIRA.config.csv_header_columns);
+            for (var x = 0; x < issues.length; x++) {
+                var issue = issues[x];
+                var issue_line = function() {};
+                issue_line.type = issue.fields.issuetype.name;
+                issue_line.key = issue.key;
+                issue_line.summary = "\"" + issue.fields.summary +
+                    "\"";
+                issue_line.status = issue.fields.status.name;
+                issue_line.points = issue.fields.customfield_10003;
+                issue_line.projected_lead_time = issue.fields.customfield_10003 *
+                    GOJIRA.config.points_per_day;
+                populate_times(issue_line, durations, issue.key,
+                    GOJIRA.config.csv_header_columns);
 
-                for (var x = 0; x < issues.length; x++) {
-                    var issue = issues[x];
-                    var issue_line = function () {
-                    };
-                    issue_line.type = issue.fields.issuetype.name;
-                    issue_line.key = issue.key;
-                    issue_line.summary = "\"" + issue.fields.summary + "\"";
-                    issue_line.status = issue.fields.status.name;
-                    issue_line.points = issue.fields.customfield_10003;
-                    issue_line.projected_lead_time = issue.fields.customfield_10003 * GOJIRA.config.points_per_day;
-                    populate_times(issue_line, durations, issue.key, GOJIRA.config.csv_header_columns);
-
-                    csv += GOJIRA.csv.from(issue_line);
-                }
-
-                GOJIRA.util.save_to_file(GOJIRA.config.output_csv_path, csv);
+                csv += GOJIRA.csv.from(issue_line);
             }
+
+            GOJIRA.util.save_to_file(GOJIRA.config.output_csv_path,
+                csv);
         }
-    })
-);
+    }
+});
