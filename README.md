@@ -24,6 +24,7 @@ Then edit <b>project_config.json</b> with your credentials and project settings.
 
 <br />
 
+<b>jira_base_url</b>: Base URL of your Jira instance, e.g. <i>https://jira.example.com</i>. <i>(Required)</i>.<br />
 <b>control_chart</b>: Your project control chart. You can find it on the Report Tab of the Scrum board. <i>(Required)</i>.<br />
 <b>project_key</b>: Your project key in Jira (DEMO, RIS3, etc) <i>(Required)</i>.<br />
 <b>component</b>: Your component <i>(Not required)</i>.<br />

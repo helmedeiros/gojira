@@ -1,4 +1,5 @@
 {
+  "jira_base_url": "https://jira.example.com",
   "control_chart": "https://jira.example.com/secure/RapidBoard.jspa?rapidView=1853&view=reporting&chart=controlChart&swimlane=12000&swimlane=12145&swimlane=12146",
   "project_key": "DEMO",
   "component": "Example Component",

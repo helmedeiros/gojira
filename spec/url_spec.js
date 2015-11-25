@@ -1,6 +1,8 @@
 var url = require("../lib/url");
 
 describe("url", function() {
+    var base_url = 'https://jira.example.com';
+
     it(
         "should return a issues url using project, component, work group, max results, and user",
         function() {
@@ -11,7 +13,7 @@ describe("url", function() {
             var user = 'a_user';
             var password = 'a_password';
 
-            var generated_url = url.issues(project, component,
+            var generated_url = url.issues(base_url, project, component,
                 work_group,
                 max_results, user, password);
 
@@ -28,7 +30,7 @@ describe("url", function() {
             var user = 'a_user';
             var password = 'a_password';
 
-            var generated_url = url.issues(project, component, null,
+            var generated_url = url.issues(base_url, project, component, null,
                 null, user,
                 password);
 
@@ -47,7 +49,7 @@ describe("url", function() {
             var from = '2015-01-01';
             var to = '2015-12-31';
 
-            var generated_url = url.control_chart(control_chart,
+            var generated_url = url.control_chart(base_url, control_chart,
                 user, password,
                 from, to);
 

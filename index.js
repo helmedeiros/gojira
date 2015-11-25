@@ -46,11 +46,13 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 var durations = [];
 
-var issues_url = GOJIRA.url.issues(GOJIRA.config.project_key, GOJIRA.config.component,
+var issues_url = GOJIRA.url.issues(GOJIRA.config.jira_base_url,
+    GOJIRA.config.project_key, GOJIRA.config.component,
     GOJIRA.config.work_group, GOJIRA.config.max_results, GOJIRA.config.user,
     GOJIRA.config.password);
 
-var control_chart_url = GOJIRA.url.control_chart(GOJIRA.config.control_chart,
+var control_chart_url = GOJIRA.url.control_chart(GOJIRA.config.jira_base_url,
+    GOJIRA.config.control_chart,
     GOJIRA.config.user,
     GOJIRA.config.password, GOJIRA.config.from, GOJIRA.config.to);
 
