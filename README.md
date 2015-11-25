@@ -17,8 +17,10 @@ GoJira!:
 
 ## Project configuration
 
-In order to extract the stories you want a minimum configuration is needed. To change this information, please refer to the file:<br />
-<b>project_config.json</b>
+Copy the template before first run:
+<pre>cp project_config.json.default project_config.json</pre>
+
+Then edit <b>project_config.json</b> with your credentials and project settings. The file is gitignored so secrets stay local.
 
 <br />
 
