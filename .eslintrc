@@ -1,0 +1,15 @@
+{
+    "env": {
+        "node": true,
+        "jasmine": true,
+        "es6": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 6
+    },
+    "extends": "eslint:recommended",
+    "rules": {
+        "no-console": "off",
+        "no-unused-vars": ["error", { "args": "none" }]
+    }
+}
