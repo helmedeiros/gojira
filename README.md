@@ -1,5 +1,7 @@
 # gojira
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Series of tasks to extract Jira data.
 
 
