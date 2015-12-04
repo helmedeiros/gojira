@@ -1,0 +1,6 @@
+{
+  "jira_base_url": "https://jira.example.com",
+  "project_key": "DEMO",
+  "user": "a_user",
+  "password": "a_password"
+}
