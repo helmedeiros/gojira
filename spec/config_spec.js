@@ -36,4 +36,14 @@ describe('config', function () {
         var loaded = config.load('./spec/fixtures/sample_config.json');
         expect(loaded.max_results).toBe(300);
     });
+
+    it('coerces points_per_day to number', function () {
+        var loaded = config.load('./spec/fixtures/points_per_day_string.json');
+        expect(loaded.points_per_day).toBe(2.5);
+    });
+
+    it('defaults points_per_day to 1.25 when missing', function () {
+        var loaded = config.load('./spec/fixtures/sample_config.json');
+        expect(loaded.points_per_day).toBe(1.25);
+    });
 });
