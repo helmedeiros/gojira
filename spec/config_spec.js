@@ -20,4 +20,10 @@ describe('config', function () {
             config.load('./spec/fixtures/missing_project_key.json');
         }).toThrow(new Error('Missing required config field: project_key'));
     });
+
+    it('throws when control_chart is missing', function () {
+        expect(function () {
+            config.load('./spec/fixtures/missing_control_chart.json');
+        }).toThrow(new Error('Missing required config field: control_chart'));
+    });
 });
