@@ -14,4 +14,10 @@ describe('config', function () {
             config.load('./spec/fixtures/missing_base_url.json');
         }).toThrow(new Error('Missing required config field: jira_base_url'));
     });
+
+    it('throws when project_key is missing', function () {
+        expect(function () {
+            config.load('./spec/fixtures/missing_project_key.json');
+        }).toThrow(new Error('Missing required config field: project_key'));
+    });
 });
