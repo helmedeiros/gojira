@@ -1,0 +1,6 @@
+{
+  "jira_base_url": "https://jira.example.com",
+  "project_key": "DEMO",
+  "control_chart": "https://jira.example.com/secure/RapidBoard.jspa?rapidView=1853",
+  "max_results": "150"
+}

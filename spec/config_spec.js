@@ -26,4 +26,14 @@ describe('config', function () {
             config.load('./spec/fixtures/missing_control_chart.json');
         }).toThrow(new Error('Missing required config field: control_chart'));
     });
+
+    it('coerces max_results to integer', function () {
+        var loaded = config.load('./spec/fixtures/max_results_string.json');
+        expect(loaded.max_results).toBe(150);
+    });
+
+    it('defaults max_results to 300 when missing', function () {
+        var loaded = config.load('./spec/fixtures/sample_config.json');
+        expect(loaded.max_results).toBe(300);
+    });
 });
