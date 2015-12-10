@@ -56,4 +56,9 @@ describe('config', function () {
         var loaded = config.load('./spec/fixtures/sample_config.json');
         expect(loaded.first_column_to_count).toBe(1);
     });
+
+    it('defaults csv_header_columns when missing', function () {
+        var loaded = config.load('./spec/fixtures/sample_config.json');
+        expect(loaded.csv_header_columns).toBe('Backlog,In Progress,Done');
+    });
 });
