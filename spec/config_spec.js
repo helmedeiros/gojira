@@ -46,4 +46,14 @@ describe('config', function () {
         var loaded = config.load('./spec/fixtures/sample_config.json');
         expect(loaded.points_per_day).toBe(1.25);
     });
+
+    it('coerces first_column_to_count to integer', function () {
+        var loaded = config.load('./spec/fixtures/first_column_string.json');
+        expect(loaded.first_column_to_count).toBe(2);
+    });
+
+    it('defaults first_column_to_count to 1 when missing', function () {
+        var loaded = config.load('./spec/fixtures/sample_config.json');
+        expect(loaded.first_column_to_count).toBe(1);
+    });
 });
