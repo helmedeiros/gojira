@@ -1,6 +1,6 @@
 var GOJIRA = GOJIRA || {};
 
-GOJIRA.config = require('./project_config');
+GOJIRA.config = require('./lib/config').load();
 GOJIRA.util = require('./lib/util');
 GOJIRA.csv = require('./lib/csv');
 GOJIRA.url = require('./lib/url');
