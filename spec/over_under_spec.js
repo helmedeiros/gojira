@@ -27,5 +27,9 @@ describe('over_under', function () {
         it('is less than 1 when actual is under projected', function () {
             expect(over_under.ratio(3, 5)).toBe(0.6);
         });
+
+        it('returns 0 when projected is zero', function () {
+            expect(over_under.ratio(5, 0)).toBe(0);
+        });
     });
 });
