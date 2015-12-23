@@ -22,4 +22,19 @@ describe("csv", function () {
         var csv_line = csv.from(issue);
         expect(csv_line).toBe('Story,DEMO-100,\"Business Story\",Backlog,4,5,8,7.9,5,0.9,2.1,75.8,3,1.6,\n');
     });
+
+    it("emits zero ratio when projected_lead_time is zero", function () {
+        var issue = function () {};
+        issue.type = 'Story';
+        issue.key = 'DEMO-200';
+        issue.summary = '"Zero Projection"';
+        issue.status = 'Done';
+        issue.points = 0;
+        issue.projected_lead_time = 0;
+        issue.times = '1,1,';
+        issue.lead_time = 2;
+
+        var csv_line = csv.from(issue);
+        expect(csv_line).toBe('Story,DEMO-200,"Zero Projection",Done,0,0,2,1,1,2,0,\n');
+    });
 });
