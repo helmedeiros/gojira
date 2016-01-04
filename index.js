@@ -5,6 +5,7 @@ GOJIRA.util = require('./lib/util');
 GOJIRA.csv = require('./lib/csv');
 GOJIRA.url = require('./lib/url');
 GOJIRA.durations = require('./lib/durations');
+GOJIRA.issue_line = require('./lib/issue_line');
 
 var request = require("request");
 
@@ -48,21 +49,12 @@ request(issues_url, function(error, response, body) {
             var csv = GOJIRA.csv.header(GOJIRA.config.csv_header_columns);
 
             for (var x = 0; x < issues.length; x++) {
-                var issue = issues[x];
-                var issue_line = function() {};
-                issue_line.type = issue.fields.issuetype.name;
-                issue_line.key = issue.key;
-                issue_line.summary = "\"" + issue.fields.summary +
-                    "\"";
-                issue_line.status = issue.fields.status.name;
-                issue_line.points = issue.fields.customfield_10003;
-                issue_line.projected_lead_time = issue.fields.customfield_10003 *
-                    GOJIRA.config.points_per_day;
-                GOJIRA.durations.populate(issue_line, durations, issue.key,
+                var line = GOJIRA.issue_line.from(issues[x], GOJIRA.config.points_per_day);
+                GOJIRA.durations.populate(line, durations, line.key,
                     GOJIRA.config.csv_header_columns,
                     GOJIRA.config.first_column_to_count);
 
-                csv += GOJIRA.csv.from(issue_line);
+                csv += GOJIRA.csv.from(line);
             }
 
             GOJIRA.util.save_to_file(GOJIRA.config.output_csv_path,
