@@ -6,10 +6,9 @@ GOJIRA.csv = require('./lib/csv');
 GOJIRA.url = require('./lib/url');
 GOJIRA.durations = require('./lib/durations');
 GOJIRA.issue_line = require('./lib/issue_line');
+GOJIRA.http = require('./lib/http');
 
 var request = require("request");
-
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 var durations = [];
 
@@ -23,7 +22,7 @@ var control_chart_url = GOJIRA.url.control_chart(GOJIRA.config.jira_base_url,
     GOJIRA.config.user,
     GOJIRA.config.password, GOJIRA.config.from, GOJIRA.config.to);
 
-request(control_chart_url, function(error, response, body) {
+GOJIRA.http.get(control_chart_url, function(error, response, body) {
     if (error) {
         console.log(error);
     } else {
