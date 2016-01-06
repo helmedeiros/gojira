@@ -8,8 +8,6 @@ GOJIRA.durations = require('./lib/durations');
 GOJIRA.issue_line = require('./lib/issue_line');
 GOJIRA.http = require('./lib/http');
 
-var request = require("request");
-
 var durations = [];
 
 var issues_url = GOJIRA.url.issues(GOJIRA.config.jira_base_url,
@@ -32,7 +30,7 @@ GOJIRA.http.get(control_chart_url, function(error, response, body) {
 });
 
 
-request(issues_url, function(error, response, body) {
+GOJIRA.http.get(issues_url, function(error, response, body) {
     if (error) {
         console.log(error);
     } else {
