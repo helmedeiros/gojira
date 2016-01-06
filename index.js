@@ -7,6 +7,7 @@ GOJIRA.url = require('./lib/url');
 GOJIRA.durations = require('./lib/durations');
 GOJIRA.issue_line = require('./lib/issue_line');
 GOJIRA.http = require('./lib/http');
+GOJIRA.control_chart_loader = require('./lib/control_chart_loader');
 
 var durations = [];
 
@@ -15,17 +16,11 @@ var issues_url = GOJIRA.url.issues(GOJIRA.config.jira_base_url,
     GOJIRA.config.work_group, GOJIRA.config.max_results, GOJIRA.config.user,
     GOJIRA.config.password);
 
-var control_chart_url = GOJIRA.url.control_chart(GOJIRA.config.jira_base_url,
-    GOJIRA.config.control_chart,
-    GOJIRA.config.user,
-    GOJIRA.config.password, GOJIRA.config.from, GOJIRA.config.to);
-
-GOJIRA.http.get(control_chart_url, function(error, response, body) {
+GOJIRA.control_chart_loader.load(GOJIRA.config, function (error, list) {
     if (error) {
         console.log(error);
     } else {
-        var json = JSON.parse(body);
-        durations = json.issues;
+        durations = list;
     }
 });
 
