@@ -61,4 +61,9 @@ describe('config', function () {
         var loaded = config.load('./spec/fixtures/sample_config.json');
         expect(loaded.csv_header_columns).toBe('Backlog,In Progress,Done');
     });
+
+    it('defaults request_timeout_ms to 30000 when missing', function () {
+        var loaded = config.load('./spec/fixtures/sample_config.json');
+        expect(loaded.request_timeout_ms).toBe(30000);
+    });
 });

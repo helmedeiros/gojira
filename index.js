@@ -2,6 +2,7 @@ var GOJIRA = GOJIRA || {};
 
 GOJIRA.config = require('./lib/config').load();
 GOJIRA.util = require('./lib/util');
+require('./lib/http').configure({ timeout: GOJIRA.config.request_timeout_ms });
 GOJIRA.control_chart_loader = require('./lib/control_chart_loader');
 GOJIRA.issues_loader = require('./lib/issues_loader');
 GOJIRA.csv_writer = require('./lib/csv_writer');
