@@ -17,13 +17,15 @@ GOJIRA.control_chart_loader.load(GOJIRA.config)
         console.log(error);
     });
 
-GOJIRA.issues_loader.load(GOJIRA.config, function (error, issues) {
-    if (error) {
-        console.log(error);
-    } else if (!issues) {
-        console.error('No issues returned. Please check your project, component and work group settings.\n');
-    } else {
+GOJIRA.issues_loader.load(GOJIRA.config)
+    .then(function (issues) {
+        if (!issues) {
+            console.error('No issues returned. Please check your project, component and work group settings.\n');
+            return;
+        }
         var csv = GOJIRA.csv_writer.build(issues, durations, GOJIRA.config);
         GOJIRA.util.save_to_file(GOJIRA.config.output_csv_path, csv);
-    }
-});
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
