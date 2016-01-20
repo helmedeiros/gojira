@@ -9,13 +9,13 @@ GOJIRA.csv_writer = require('./lib/csv_writer');
 
 var durations = [];
 
-GOJIRA.control_chart_loader.load(GOJIRA.config, function (error, list) {
-    if (error) {
-        console.log(error);
-    } else {
+GOJIRA.control_chart_loader.load(GOJIRA.config)
+    .then(function (list) {
         durations = list;
-    }
-});
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
 
 GOJIRA.issues_loader.load(GOJIRA.config, function (error, issues) {
     if (error) {
