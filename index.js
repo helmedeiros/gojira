@@ -11,7 +11,7 @@ GOJIRA.extract.run(GOJIRA.config)
             console.error('No issues returned. Please check your project, component and work group settings.\n');
             return;
         }
-        GOJIRA.util.save_to_file(GOJIRA.config.output_csv_path, csv);
+        return GOJIRA.util.save_to_file(GOJIRA.config.output_csv_path, csv);
     })
     .catch(function (error) {
         console.log(error);
