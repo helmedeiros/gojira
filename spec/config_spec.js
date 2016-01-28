@@ -66,4 +66,9 @@ describe('config', function () {
         var loaded = config.load('./spec/fixtures/sample_config.json');
         expect(loaded.request_timeout_ms).toBe(30000);
     });
+
+    it('defaults include_metrics to false when missing', function () {
+        var loaded = config.load('./spec/fixtures/sample_config.json');
+        expect(loaded.include_metrics).toBe(false);
+    });
 });
