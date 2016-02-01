@@ -37,6 +37,17 @@ Then edit <b>project_config.json</b> with your credentials and project settings.
 <b>first_column_to_count</b>: Defines the first column to be counted in the sum for Actual Lead Time. Default is 1, meaning the second column (i.e. skipping Backlog). If you have an intermediate stage between Backlog and In Progress (e.g. Ready for Dev), set this to 2.<br />
 <b>request_timeout_ms</b>: How long to wait for a Jira HTTP response before failing. Default is 30000 (30 seconds).<br />
 
+## Metrics
+
+The `lib/metrics/` modules expose small pure functions you can call against the issues collected by gojira:
+
+- `cycle_time.compute(working_times, first_column_to_count)` — days spent between the first counted column and the final column.
+- `throughput.compute(lines)` — number of items.
+- `velocity.compute(lines)` — sum of story points.
+- `wip.compute(lines)` — count of items whose status is not Backlog or Done.
+
+`csv_writer.summary(lines)` bundles throughput, velocity and wip into a single object.
+
 ## Testing
 
 Install jasmine-node:
