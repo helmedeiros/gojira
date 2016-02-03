@@ -71,4 +71,15 @@ describe('config', function () {
         var loaded = config.load('./spec/fixtures/sample_config.json');
         expect(loaded.include_metrics).toBe(false);
     });
+
+    it('defaults output_format to csv when missing', function () {
+        var loaded = config.load('./spec/fixtures/sample_config.json');
+        expect(loaded.output_format).toBe('csv');
+    });
+
+    it('throws on an unsupported output_format', function () {
+        expect(function () {
+            config.load('./spec/fixtures/bad_format.json');
+        }).toThrow(new Error('Unsupported output_format: yaml'));
+    });
 });
