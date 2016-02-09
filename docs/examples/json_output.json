@@ -1,0 +1,11 @@
+{
+  "jira_base_url": "https://jira.example.com",
+  "control_chart": "https://jira.example.com/secure/RapidBoard.jspa?rapidView=42",
+  "project_key": "TEAM",
+  "output_csv_path": "/tmp/team.json",
+  "output_format": "json",
+  "user": "your_user",
+  "password": "your_password",
+  "from": "2016-01-01",
+  "to": "2016-12-31"
+}

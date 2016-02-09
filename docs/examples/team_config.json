@@ -1,0 +1,20 @@
+{
+  "jira_base_url": "https://jira.example.com",
+  "control_chart": "https://jira.example.com/secure/RapidBoard.jspa?rapidView=42&swimlane=100&swimlane=101",
+  "project_key": "TEAM",
+  "component": "Checkout",
+  "work_group": "Application",
+  "csv_header_columns": "Backlog,Ready,In Progress,Code Review,QA,Done",
+  "max_results": "500",
+  "output_csv_path": "/tmp/team-cycle.csv",
+  "output_format": "csv",
+  "output_target": "file",
+  "user": "your_user",
+  "password": "your_password",
+  "from": "2016-01-01",
+  "to": "2016-12-31",
+  "first_column_to_count": "2",
+  "points_per_day": "1.5",
+  "request_timeout_ms": "60000",
+  "include_metrics": true
+}
