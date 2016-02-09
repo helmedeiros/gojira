@@ -1,5 +1,6 @@
 # gojira
 
+[![Build Status](https://travis-ci.org/helmedeiros/gojira.svg?branch=master)](https://travis-ci.org/helmedeiros/gojira)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Series of tasks to extract Jira data.
