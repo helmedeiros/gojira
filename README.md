@@ -42,14 +42,11 @@ Then edit <b>project_config.json</b> with your credentials and project settings.
 
 ## Metrics
 
-The `lib/metrics/` modules expose small pure functions you can call against the issues collected by gojira:
+See [`docs/metrics.md`](docs/metrics.md) for cycle time, throughput, velocity and wip helpers, plus the `csv_writer.summary` bundler.
 
-- `cycle_time.compute(working_times, first_column_to_count)` — days spent between the first counted column and the final column.
-- `throughput.compute(lines)` — number of items.
-- `velocity.compute(lines)` — sum of story points.
-- `wip.compute(lines)` — count of items whose status is not Backlog or Done.
+## Architecture
 
-`csv_writer.summary(lines)` bundles throughput, velocity and wip into a single object.
+See [`docs/architecture.md`](docs/architecture.md) for module boundaries and the extract flow.
 
 ## Testing
 
