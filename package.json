@@ -23,6 +23,9 @@
   },
   "author": "",
   "license": "MIT",
+  "engines": {
+    "node": ">=4"
+  },
   "dependencies": {
     "axios": "^0.7.0",
     "fs": "0.0.2",
