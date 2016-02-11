@@ -1,8 +1,18 @@
 {
   "name": "gojira",
   "version": "1.0.0",
-  "description": "Series of tasks to extract Jira data",
+  "description": "Extract Jira issues and control-chart durations into CSV, JSON or Markdown reports",
   "main": "index.js",
+  "keywords": [
+    "jira",
+    "agile",
+    "cycle-time",
+    "lead-time",
+    "control-chart",
+    "metrics",
+    "csv",
+    "report"
+  ],
   "scripts": {
     "test": "jasmine-node spec",
     "lint": "eslint ."
