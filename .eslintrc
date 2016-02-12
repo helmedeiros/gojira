@@ -9,7 +9,7 @@
     },
     "extends": "eslint:recommended",
     "rules": {
-        "no-console": "off",
-        "no-unused-vars": ["error", { "args": "none" }]
+        "no-console": 0,
+        "no-unused-vars": [2, { "args": "none" }]
     }
 }
