@@ -15,7 +15,8 @@
   ],
   "scripts": {
     "test": "jasmine-node spec",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "coverage": "istanbul cover -x \"spec/**\" jasmine-node -- spec"
   },
   "repository": {
     "type": "git",
@@ -33,6 +34,9 @@
     "underscore": "^1.7.0"
   },
   "devDependencies": {
-    "eslint": "^1.10.3"
+    "chai": "^3.5.0",
+    "eslint": "^1.10.3",
+    "istanbul": "^0.4.2",
+    "mocha": "^2.4.5"
   }
 }
