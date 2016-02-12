@@ -1,4 +1,4 @@
-var markdown_writer = require('../../lib/writers/markdown');
+var markdown_writer = require('../../../lib/writers/markdown');
 
 var DAY_MS = 60 * 60 * 24 * 1000;
 

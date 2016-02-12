@@ -1,4 +1,4 @@
-var over_under = require('../lib/over_under');
+var over_under = require('../../lib/over_under');
 
 describe('over_under', function () {
     describe('diff', function () {

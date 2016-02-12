@@ -1,4 +1,4 @@
-var durations = require('../lib/durations');
+var durations = require('../../lib/durations');
 
 var DAY_MS = 60 * 60 * 24 * 1000;
 

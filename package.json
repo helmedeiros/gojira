@@ -14,9 +14,9 @@
     "report"
   ],
   "scripts": {
-    "test": "jasmine-node spec",
+    "test": "jasmine-node spec/jasmine && mocha --recursive spec/mocha",
     "lint": "eslint .",
-    "coverage": "istanbul cover -x \"spec/**\" jasmine-node -- spec"
+    "coverage": "istanbul cover -x \"spec/**\" jasmine-node -- spec/jasmine"
   },
   "repository": {
     "type": "git",

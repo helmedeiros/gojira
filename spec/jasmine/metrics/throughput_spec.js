@@ -1,4 +1,4 @@
-var throughput = require('../../lib/metrics/throughput');
+var throughput = require('../../../lib/metrics/throughput');
 
 describe('throughput', function () {
     it('returns 0 for missing input', function () {

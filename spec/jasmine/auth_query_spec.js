@@ -1,4 +1,4 @@
-var auth_query = require('../lib/auth_query');
+var auth_query = require('../../lib/auth_query');
 
 describe('auth_query', function () {
     it('returns empty when user is missing', function () {

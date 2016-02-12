@@ -1,4 +1,4 @@
-var wip = require('../../lib/metrics/wip');
+var wip = require('../../../lib/metrics/wip');
 
 describe('wip', function () {
     it('returns 0 for missing input', function () {

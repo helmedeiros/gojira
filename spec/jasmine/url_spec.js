@@ -1,4 +1,4 @@
-var url = require("../lib/url");
+var url = require("../../lib/url");
 
 describe("url", function() {
     var base_url = 'https://jira.example.com';

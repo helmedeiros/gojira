@@ -1,4 +1,4 @@
-var velocity = require('../../lib/metrics/velocity');
+var velocity = require('../../../lib/metrics/velocity');
 
 describe('velocity', function () {
     it('returns 0 for missing input', function () {

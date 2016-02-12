@@ -1,4 +1,4 @@
-var csv = require("../lib/csv");
+var csv = require("../../lib/csv");
 
 describe("csv", function () {
     it("should create a custom header", function () {

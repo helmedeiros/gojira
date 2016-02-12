@@ -1,4 +1,4 @@
-var cycle_time = require('../../lib/metrics/cycle_time');
+var cycle_time = require('../../../lib/metrics/cycle_time');
 
 var DAY_MS = 60 * 60 * 24 * 1000;
 

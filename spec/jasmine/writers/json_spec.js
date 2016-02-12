@@ -1,4 +1,4 @@
-var json_writer = require('../../lib/writers/json');
+var json_writer = require('../../../lib/writers/json');
 
 var DAY_MS = 60 * 60 * 24 * 1000;
 

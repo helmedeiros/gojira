@@ -1,4 +1,4 @@
-var issue_line = require('../lib/issue_line');
+var issue_line = require('../../lib/issue_line');
 
 describe('issue_line', function () {
     var jira_issue;

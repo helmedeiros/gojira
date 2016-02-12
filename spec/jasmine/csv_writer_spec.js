@@ -1,4 +1,4 @@
-var csv_writer = require('../lib/csv_writer');
+var csv_writer = require('../../lib/csv_writer');
 
 describe('csv_writer.summary', function () {
     it('returns zero metrics for empty input', function () {

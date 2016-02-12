@@ -1,7 +1,7 @@
-var writers = require('../../lib/writers');
-var csv_writer = require('../../lib/csv_writer');
-var json_writer = require('../../lib/writers/json');
-var markdown_writer = require('../../lib/writers/markdown');
+var writers = require('../../../lib/writers');
+var csv_writer = require('../../../lib/csv_writer');
+var json_writer = require('../../../lib/writers/json');
+var markdown_writer = require('../../../lib/writers/markdown');
 
 describe('writers.for_format', function () {
     it('returns the csv writer for csv', function () {

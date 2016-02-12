@@ -1,4 +1,4 @@
-var dates_query = require('../lib/dates_query');
+var dates_query = require('../../lib/dates_query');
 
 describe('dates_query', function () {
     it('returns empty when both bounds are missing', function () {
