@@ -1,3 +1,4 @@
+var expect = require('chai').expect;
 var json_writer = require('../../../lib/writers/json');
 
 var DAY_MS = 60 * 60 * 24 * 1000;
@@ -25,16 +26,15 @@ describe('writers/json', function () {
     }];
 
     it('returns a JSON array with one entry per issue', function () {
-        var out = json_writer.build(issues, working_times, config);
-        var parsed = JSON.parse(out);
-        expect(parsed.length).toBe(1);
-        expect(parsed[0].key).toBe('DEMO-1');
-        expect(parsed[0].type).toBe('Story');
+        var parsed = JSON.parse(json_writer.build(issues, working_times, config));
+        expect(parsed.length).to.equal(1);
+        expect(parsed[0].key).to.equal('DEMO-1');
+        expect(parsed[0].type).to.equal('Story');
     });
 
     it('includes projected and actual lead time', function () {
         var parsed = JSON.parse(json_writer.build(issues, working_times, config));
-        expect(parsed[0].projected_lead_time).toBe(5);
-        expect(parsed[0].lead_time).toBe(5);
+        expect(parsed[0].projected_lead_time).to.equal(5);
+        expect(parsed[0].lead_time).to.equal(5);
     });
 });
