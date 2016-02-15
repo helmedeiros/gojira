@@ -1,3 +1,4 @@
+var expect = require('chai').expect;
 var issue_line = require('../../lib/issue_line');
 
 describe('issue_line', function () {
@@ -17,19 +18,19 @@ describe('issue_line', function () {
 
     it('maps type, key, status and quoted summary', function () {
         var line = issue_line.from(jira_issue, 1.25);
-        expect(line.type).toBe('Story');
-        expect(line.key).toBe('DEMO-1');
-        expect(line.status).toBe('Done');
-        expect(line.summary).toBe('"Sample Story"');
+        expect(line.type).to.equal('Story');
+        expect(line.key).to.equal('DEMO-1');
+        expect(line.status).to.equal('Done');
+        expect(line.summary).to.equal('"Sample Story"');
     });
 
     it('exposes story points', function () {
         var line = issue_line.from(jira_issue, 1.25);
-        expect(line.points).toBe(4);
+        expect(line.points).to.equal(4);
     });
 
     it('projects lead time from points and points_per_day', function () {
         var line = issue_line.from(jira_issue, 1.25);
-        expect(line.projected_lead_time).toBe(5);
+        expect(line.projected_lead_time).to.equal(5);
     });
 });
