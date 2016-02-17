@@ -16,7 +16,8 @@
   "scripts": {
     "test": "mocha --recursive spec/mocha",
     "lint": "eslint .",
-    "coverage": "istanbul cover -x \"spec/**\" node_modules/mocha/bin/_mocha -- --recursive spec/mocha"
+    "coverage": "istanbul cover -x \"spec/**\" node_modules/mocha/bin/_mocha -- --recursive spec/mocha",
+    "coverage:check": "istanbul check-coverage --statements 90 --branches 85 --functions 90 --lines 90"
   },
   "repository": {
     "type": "git",
