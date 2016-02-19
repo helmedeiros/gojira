@@ -1,0 +1,13 @@
+{
+  "jira_base_url": "https://jira.example.com",
+  "control_chart": "https://jira.example.com/secure/RapidBoard.jspa?rapidView=42&swimlane=10",
+  "project_key": "DEMO",
+  "csv_header_columns": "Backlog,In Progress,Done",
+  "max_results": "50",
+  "user": "a_user",
+  "password": "a_password",
+  "from": "2016-01-01",
+  "to": "2016-01-31",
+  "points_per_day": "1.25",
+  "first_column_to_count": "1"
+}
