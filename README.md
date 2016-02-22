@@ -50,8 +50,11 @@ See [`docs/architecture.md`](docs/architecture.md) for module boundaries and the
 
 ## Testing
 
-Install jasmine-node:
-<pre>npm install jasmine-node -g</pre>
+```
+npm test                  # unit + integration + e2e (mocha)
+npm run lint              # eslint
+npm run coverage          # istanbul + mocha
+npm run coverage:check    # enforce coverage thresholds
+```
 
-Run unit tests:
-<pre>jasmine-node spec</pre>
+See [`docs/testing.md`](docs/testing.md) for the test pyramid layout (unit / integration / e2e), stubbing conventions, and where to put new tests.
