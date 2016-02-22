@@ -2,6 +2,25 @@
 
 All notable changes to this project are documented here.
 
+## 1.2.0 — 2016-02-22
+
+### Added
+- Mocha + Chai + Istanbul + Sinon test stack with `npm test`, `npm run coverage`, `npm run coverage:check`.
+- Coverage thresholds enforced in CI: statements 90, branches 85, functions 90, lines 90 (current ~97/91/95/97).
+- Unit tests for `lib/util` and `lib/http`.
+- Integration tests for `control_chart_loader`, `issues_loader`, and the `extract` orchestrator (axios stubbed via Sinon).
+- End-to-end test exercising the full config → load → write flow.
+- `docs/testing.md` describing the test pyramid and stubbing conventions.
+
+### Changed
+- Migrated specs from jasmine-node to Mocha + Chai. `spec/jasmine/` removed.
+- `lib/http.js` now passes options to `axios.get` per call instead of using `axios.create` (incompatible with axios 0.7.x).
+- ESLint rule severities switched to numeric form to satisfy ESLint 1.x.
+- Travis script runs lint + coverage + coverage threshold check.
+
+### Removed
+- `jasmine-node` dependency.
+
 ## 1.1.0 — 2016-02-11
 
 ### Added
