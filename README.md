@@ -39,6 +39,7 @@ Then edit <b>project_config.json</b> with your credentials and project settings.
 <b>request_timeout_ms</b>: How long to wait for a Jira HTTP response before failing. Default is 30000 (30 seconds).<br />
 <b>output_format</b>: One of <i>csv</i>, <i>json</i> or <i>markdown</i>. Default is <i>csv</i>.<br />
 <b>output_target</b>: One of <i>file</i> (writes to <i>output_csv_path</i>) or <i>stdout</i>. Default is <i>file</i>.<br />
+<b>story_points_field</b>: Jira custom field id that holds the story-point estimate. Default is <i>customfield_10003</i>. Override if your Jira instance maps points to a different custom field.<br />
 
 ## Metrics
 

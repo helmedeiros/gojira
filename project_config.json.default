@@ -12,5 +12,6 @@
   "from": "2014-07-01",
   "to": "2015-12-31",
   "first_column_to_count": "1",
-  "points_per_day": "1.25"
+  "points_per_day": "1.25",
+  "story_points_field": "customfield_10003"
 }
