@@ -7,7 +7,8 @@ describe('writers/markdown', function () {
     var config = {
         points_per_day: 1.25,
         csv_header_columns: 'Backlog,In Progress,Done',
-        first_column_to_count: 1
+        first_column_to_count: 1,
+        story_points_field: 'customfield_10003'
     };
 
     var issues = [{

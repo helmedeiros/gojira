@@ -23,7 +23,8 @@ describe('extract (integration)', function () {
             to: '2016-01-31',
             points_per_day: 1.25,
             first_column_to_count: 1,
-            output_format: 'csv'
+            output_format: 'csv',
+            story_points_field: 'customfield_10003'
         };
         stub.onCall(0).returns(Promise.resolve({
             data: { issues: [{ key: 'DEMO-1', workingTime: [2 * DAY_MS, 5 * DAY_MS, 0] }] }

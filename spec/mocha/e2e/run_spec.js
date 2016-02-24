@@ -33,7 +33,8 @@ describe('gojira (end-to-end)', function () {
             output_format: 'csv',
             output_target: 'file',
             output_csv_path: output_path,
-            request_timeout_ms: 30000
+            request_timeout_ms: 30000,
+            story_points_field: 'customfield_10003'
         };
         config_stub = sinon.stub(config_loader, 'load').returns(base_config);
         axios_stub.onCall(0).returns(Promise.resolve({

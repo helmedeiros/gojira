@@ -78,6 +78,11 @@ describe('config', function () {
         expect(loaded.output_format).to.equal('csv');
     });
 
+    it('defaults story_points_field to customfield_10003 when missing', function () {
+        var loaded = config.load('./spec/fixtures/sample_config.json');
+        expect(loaded.story_points_field).to.equal('customfield_10003');
+    });
+
     it('throws on an unsupported output_format', function () {
         expect(function () {
             config.load('./spec/fixtures/bad_format.json');
