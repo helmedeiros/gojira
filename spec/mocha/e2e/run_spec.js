@@ -4,23 +4,42 @@ var fs = require('fs');
 var os = require('os');
 var path = require('path');
 var axios = require('axios');
+var main = require('../../../lib/main');
 var config_loader = require('../../../lib/config');
-var extract = require('../../../lib/extract');
-var util = require('../../../lib/util');
 
 var DAY_MS = 60 * 60 * 24 * 1000;
 
 describe('gojira (end-to-end)', function () {
-    var stub;
+    var axios_stub;
+    var config_stub;
     var output_path;
+    var base_config;
 
     beforeEach(function () {
-        stub = sinon.stub(axios, 'get');
+        axios_stub = sinon.stub(axios, 'get');
         output_path = path.join(os.tmpdir(), 'gojira-e2e-' + process.pid + '.csv');
-        stub.onCall(0).returns(Promise.resolve({
+        base_config = {
+            jira_base_url: 'https://jira.example.com',
+            control_chart: 'https://jira.example.com/secure/RapidBoard.jspa?rapidView=42',
+            project_key: 'DEMO',
+            csv_header_columns: 'Backlog,In Progress,Done',
+            max_results: 50,
+            user: 'a_user',
+            password: 'a_password',
+            from: '2016-01-01',
+            to: '2016-01-31',
+            points_per_day: 1.25,
+            first_column_to_count: 1,
+            output_format: 'csv',
+            output_target: 'file',
+            output_csv_path: output_path,
+            request_timeout_ms: 30000
+        };
+        config_stub = sinon.stub(config_loader, 'load').returns(base_config);
+        axios_stub.onCall(0).returns(Promise.resolve({
             data: { issues: [{ key: 'DEMO-1', workingTime: [3 * DAY_MS, 8 * DAY_MS, 0] }] }
         }));
-        stub.onCall(1).returns(Promise.resolve({
+        axios_stub.onCall(1).returns(Promise.resolve({
             data: {
                 issues: [{
                     key: 'DEMO-1',
@@ -36,23 +55,34 @@ describe('gojira (end-to-end)', function () {
     });
 
     afterEach(function () {
-        stub.restore();
+        axios_stub.restore();
+        config_stub.restore();
         try { fs.unlinkSync(output_path); } catch (e) { /* file may not exist */ }
     });
 
-    it('loads config, fetches, builds csv and writes to disk', function () {
-        var config = config_loader.load('./spec/fixtures/e2e_config.json');
-        config.output_csv_path = output_path;
+    it('writes a csv file when output_target is file', function () {
+        return main.run().then(function () {
+            var written = fs.readFileSync(output_path, 'utf8');
+            expect(written).to.contain('Type,Key,Summary');
+            expect(written).to.contain('Story,DEMO-1');
+            expect(written).to.contain('"Sample Story"');
+        });
+    });
 
-        return extract.run(config)
-            .then(function (output) {
-                return util.save_to_file(config.output_csv_path, output);
-            })
-            .then(function () {
-                var written = fs.readFileSync(output_path, 'utf8');
-                expect(written).to.contain('Type,Key,Summary');
-                expect(written).to.contain('Story,DEMO-1');
-                expect(written).to.contain('"Sample Story"');
-            });
+    it('writes nothing to disk when output_target is stdout', function () {
+        base_config.output_target = 'stdout';
+        return main.run().then(function () {
+            expect(fs.existsSync(output_path)).to.equal(false);
+        });
+    });
+
+    it('emits an error message when the issues response is empty', function () {
+        var stderr = sinon.stub(console, 'error');
+        axios_stub.onCall(1).returns(Promise.resolve({ data: {} }));
+
+        return main.run().then(function () {
+            expect(stderr.firstCall.args[0]).to.contain('No issues returned');
+            stderr.restore();
+        });
     });
 });
