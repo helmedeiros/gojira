@@ -17,6 +17,26 @@ Install dependencies:
 GoJira!:
 <pre>node index.js</pre>
 
+### CLI flags
+
+All optional. Each one overrides the value in <i>project_config.json</i> for that run.
+
+```
+node index.js [options]
+
+  -c, --config <path>    Path to project_config.json (default: ./project_config.json)
+  -o, --output <path>    Override output_csv_path
+  -f, --format <format>  Override output_format (csv|json|markdown)
+  -t, --target <target>  Override output_target (file|stdout)
+```
+
+Examples:
+```
+node index.js --config team_config.json
+node index.js --format json --target stdout > issues.json
+node index.js --config team_config.json --output /tmp/team.csv
+```
+
 
 ## Project configuration
 
