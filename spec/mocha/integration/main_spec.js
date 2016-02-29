@@ -1,0 +1,90 @@
+var expect = require('chai').expect;
+var sinon = require('sinon');
+var fs = require('fs');
+var os = require('os');
+var path = require('path');
+var axios = require('axios');
+var main = require('../../../lib/main');
+var config_loader = require('../../../lib/config');
+
+var DAY_MS = 60 * 60 * 24 * 1000;
+
+describe('main.run (integration)', function () {
+    var axios_stub;
+    var config_stub;
+    var base_config;
+    var output_path;
+
+    beforeEach(function () {
+        axios_stub = sinon.stub(axios, 'get');
+        output_path = path.join(os.tmpdir(), 'gojira-main-' + process.pid + '.csv');
+        base_config = {
+            jira_base_url: 'https://jira.example.com',
+            control_chart: 'https://jira.example.com/secure/RapidBoard.jspa?rapidView=42',
+            project_key: 'DEMO',
+            csv_header_columns: 'Backlog,In Progress,Done',
+            max_results: 50,
+            user: 'a_user',
+            password: 'a_password',
+            from: '2016-01-01',
+            to: '2016-01-31',
+            points_per_day: 1.25,
+            first_column_to_count: 1,
+            output_format: 'csv',
+            output_target: 'file',
+            output_csv_path: '/tmp/should-not-be-used.csv',
+            request_timeout_ms: 30000,
+            story_points_field: 'customfield_10003'
+        };
+        config_stub = sinon.stub(config_loader, 'load').returns(base_config);
+        axios_stub.onCall(0).returns(Promise.resolve({
+            data: { issues: [{ key: 'DEMO-1', workingTime: [1 * DAY_MS, 2 * DAY_MS, 0] }] }
+        }));
+        axios_stub.onCall(1).returns(Promise.resolve({
+            data: {
+                issues: [{
+                    key: 'DEMO-1',
+                    fields: {
+                        issuetype: { name: 'Story' },
+                        status: { name: 'Done' },
+                        summary: 'Sample',
+                        customfield_10003: 2
+                    }
+                }]
+            }
+        }));
+    });
+
+    afterEach(function () {
+        axios_stub.restore();
+        config_stub.restore();
+        try { fs.unlinkSync(output_path); } catch (e) { /* may not exist */ }
+    });
+
+    it('writes to output_csv_path override', function () {
+        return main.run({ output_csv_path: output_path }).then(function () {
+            expect(fs.existsSync(output_path)).to.equal(true);
+        });
+    });
+
+    it('switches to json output when output_format is overridden', function () {
+        var stdout = sinon.stub(console, 'log');
+        return main.run({ output_format: 'json', output_target: 'stdout' }).then(function () {
+            var written = stdout.firstCall.args[0];
+            stdout.restore();
+            expect(function () { JSON.parse(written); }).to.not.throw();
+        });
+    });
+
+    it('passes config_path through to the config loader', function () {
+        return main.run({ config_path: 'custom.json', output_csv_path: output_path }).then(function () {
+            expect(config_stub.firstCall.args[0]).to.equal('custom.json');
+        });
+    });
+
+    it('ignores undefined option fields', function () {
+        return main.run({ output_csv_path: output_path, output_format: undefined }).then(function () {
+            expect(base_config.output_format).to.equal('csv');
+        });
+    });
+});
