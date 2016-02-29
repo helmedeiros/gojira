@@ -2,6 +2,17 @@
 
 All notable changes to this project are documented here.
 
+## 1.3.0 — 2016-02-29
+
+### Added
+- CLI flags: `--config`, `--output`, `--format`, `--target` (and short forms `-c`, `-o`, `-f`, `-t`). Each overrides the corresponding `project_config.json` field for the current run.
+- `story_points_field` config field (default `customfield_10003`) for Jira instances that map story points to a different custom field.
+- `lib/main.js` exposing `main.run(options)` — the entry point is now testable.
+- Integration test covering `main.run` option overrides.
+
+### Changed
+- `issue_line.from(issue, config)` now takes the full config object instead of just `points_per_day`. Internal API only; affects writers that compose `issue_line`.
+
 ## 1.2.0 — 2016-02-22
 
 ### Added
