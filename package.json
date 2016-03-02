@@ -30,8 +30,7 @@
   },
   "dependencies": {
     "axios": "^0.7.0",
-    "commander": "^2.9.0",
-    "fs": "0.0.2"
+    "commander": "^2.9.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
