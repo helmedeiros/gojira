@@ -68,7 +68,7 @@ describe('main.run (integration)', function () {
     });
 
     it('switches to json output when output_format is overridden', function () {
-        var stdout = sinon.stub(console, 'log');
+        var stdout = sinon.stub(process.stdout, 'write');
         return main.run({ output_format: 'json', output_target: 'stdout' }).then(function () {
             var written = stdout.firstCall.args[0];
             stdout.restore();
