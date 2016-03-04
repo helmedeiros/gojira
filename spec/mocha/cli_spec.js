@@ -39,6 +39,18 @@ describe('cli.parse', function () {
         expect(options.output_target).to.equal('stdout');
     });
 
+    it('maps --quiet to log_level silent', function () {
+        expect(cli.parse(argv(['--quiet'])).log_level).to.equal('silent');
+    });
+
+    it('maps --verbose to log_level debug', function () {
+        expect(cli.parse(argv(['--verbose'])).log_level).to.equal('debug');
+    });
+
+    it('leaves log_level undefined when neither flag is set', function () {
+        expect(cli.parse(argv([])).log_level).to.be.undefined;
+    });
+
     it('parses multiple flags together', function () {
         var options = cli.parse(argv([
             '-c', 'team.json',
