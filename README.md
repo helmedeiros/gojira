@@ -28,6 +28,8 @@ node index.js [options]
   -o, --output <path>    Override output_csv_path
   -f, --format <format>  Override output_format (csv|json|markdown)
   -t, --target <target>  Override output_target (file|stdout)
+  -q, --quiet            Silence logger output
+  -v, --verbose          Enable debug logging (e.g. show outgoing HTTP requests)
 ```
 
 Examples:
