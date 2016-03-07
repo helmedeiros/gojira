@@ -2,6 +2,20 @@
 
 All notable changes to this project are documented here.
 
+## 1.4.0 — 2016-03-07
+
+### Added
+- `lib/logger` — leveled logger (silent / error / warn / info / debug).
+- `--quiet` and `--verbose` CLI flags that drive the logger level.
+
+### Changed
+- `lib/http` now logs outgoing requests via `logger.debug` (silent at the default `info` level).
+- `lib/main` routes the "no issues" message through `logger.error` and streams stdout output via `process.stdout.write` (no trailing newline injection).
+
+### Removed
+- `underscore` runtime dependency. `lib/durations` uses native `Array.prototype.find` (Node 4+).
+- `fs` npm shim from `dependencies` (Node ships the real `fs` module built-in).
+
 ## 1.3.0 — 2016-02-29
 
 ### Added
