@@ -38,4 +38,20 @@ describe('writers/json', function () {
         expect(parsed[0].projected_lead_time).to.equal(5);
         expect(parsed[0].lead_time).to.equal(5);
     });
+
+    it('wraps lines with a summary when include_metrics is true', function () {
+        var enriched = Object.assign({}, config, { include_metrics: true });
+        var parsed = JSON.parse(json_writer.build(issues, working_times, enriched));
+        expect(parsed).to.have.property('summary');
+        expect(parsed).to.have.property('lines');
+        expect(parsed.lines).to.have.length(1);
+        expect(parsed.summary.throughput).to.equal(1);
+        expect(parsed.summary.cycle_time_stats.count).to.equal(1);
+        expect(parsed.summary.cycle_time_stats.mean).to.equal(5);
+    });
+
+    it('keeps the bare array shape when include_metrics is false', function () {
+        var parsed = JSON.parse(json_writer.build(issues, working_times, config));
+        expect(parsed).to.be.an('array');
+    });
 });
