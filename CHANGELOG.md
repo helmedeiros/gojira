@@ -2,6 +2,14 @@
 
 All notable changes to this project are documented here.
 
+## 1.5.0 — 2016-03-14
+
+### Added
+- `lib/metrics/percentile` — linear-interpolation percentile of a numeric array.
+- `lib/metrics/aggregate.summarize` — bundles `count, min, max, mean, median, p85, p95`.
+- `csv_writer.summary` now includes `cycle_time_stats` (aggregate of every line's `lead_time`).
+- JSON writer wraps its output as `{ summary, lines }` when `include_metrics` is true (was previously a dead config flag).
+
 ## 1.4.0 — 2016-03-07
 
 ### Added
