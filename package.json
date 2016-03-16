@@ -3,6 +3,18 @@
   "version": "1.5.0",
   "description": "Extract Jira issues and control-chart durations into CSV, JSON or Markdown reports",
   "main": "index.js",
+  "bin": {
+    "gojira": "bin/gojira"
+  },
+  "files": [
+    "index.js",
+    "bin/",
+    "lib/",
+    "project_config.json.default",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
   "keywords": [
     "jira",
     "agile",
