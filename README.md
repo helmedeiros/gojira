@@ -8,14 +8,28 @@ Series of tasks to extract Jira data.
 
 ## Installation
 
-Clone the repository:
-<pre>git clone git@github.com:helmedeiros/gojira.git</pre>
+### As a global CLI
 
-Install dependencies:
-<pre>npm install</pre>
+```
+npm install -g gojira
+```
 
-GoJira!:
-<pre>node index.js</pre>
+Then anywhere with a `project_config.json`:
+
+```
+gojira
+```
+
+### From source
+
+```
+git clone git@github.com:helmedeiros/gojira.git
+cd gojira
+npm install
+node index.js
+# or:
+node bin/gojira
+```
 
 ### CLI flags
 
