@@ -54,6 +54,21 @@ node index.js --config team_config.json --output /tmp/team.csv
 ```
 
 
+### As a library
+
+```js
+var gojira = require('gojira');
+
+gojira.run({
+    config_path: './team_config.json',
+    output_format: 'json',
+    output_target: 'stdout'
+})
+.catch(function (err) { console.error(err); });
+```
+
+`gojira.run(options)` returns a Promise. `options` accepts the same fields as the CLI flags (`config_path`, `output_csv_path`, `output_format`, `output_target`, `log_level`). Anything missing falls back to `project_config.json`.
+
 ## Project configuration
 
 Copy the template before first run:
