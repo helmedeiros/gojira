@@ -2,6 +2,15 @@
 
 All notable changes to this project are documented here.
 
+## 1.6.0 — 2016-03-18
+
+### Added
+- `bin/gojira` shell entry point. After `npm install -g gojira`, the `gojira` command is available on `PATH`.
+- `package.json` `bin` field publishing the entry; `files` whitelist constrains the published tarball to `bin/`, `lib/`, `index.js`, the default config, README, CHANGELOG and LICENSE.
+- `--version` and `-V` flags (wired through commander to `package.json`'s `version`).
+- `index.js` is now dual-mode: `require('gojira')` returns `{ run, cli_run }`; running directly (`node index.js` or via `bin/gojira`) still executes the CLI.
+- E2E tests that spawn `bin/gojira --version` and `bin/gojira --help`.
+
 ## 1.5.0 — 2016-03-14
 
 ### Added
