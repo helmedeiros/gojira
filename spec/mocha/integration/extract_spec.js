@@ -72,6 +72,14 @@ describe('extract (integration)', function () {
         });
     });
 
+    it('produces an HTML document when output_format is html', function () {
+        config.output_format = 'html';
+        return extract.run(config).then(function (output) {
+            expect(output).to.match(/^<!DOCTYPE html>/);
+            expect(output).to.contain('<td>DEMO-1</td>');
+        });
+    });
+
     it('returns null when the issues response has no issues key', function () {
         stub.onCall(1).returns(Promise.resolve({ data: {} }));
         return extract.run(config).then(function (output) {
