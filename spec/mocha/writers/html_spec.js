@@ -54,6 +54,23 @@ describe('writers/html', function () {
         expect(out).to.contain('<td>Done</td>');
     });
 
+    it('emits a full HTML document with DOCTYPE, head and body', function () {
+        var out = html_writer.build(issues, working_times, config);
+        expect(out).to.match(/^<!DOCTYPE html>/);
+        expect(out).to.contain('<html lang="en">');
+        expect(out).to.contain('<meta charset="utf-8">');
+        expect(out).to.contain('<title>gojira report</title>');
+        expect(out).to.contain('<body>');
+        expect(out).to.contain('</html>');
+    });
+
+    it('embeds a CSS theme inside the head', function () {
+        var out = html_writer.build(issues, working_times, config);
+        var head_to_body = out.slice(0, out.indexOf('<body>'));
+        expect(head_to_body).to.contain('<style>');
+        expect(head_to_body).to.contain('border-collapse: collapse');
+    });
+
     it('escapes HTML special characters in cell content', function () {
         var risky = [{
             key: 'DEMO-2',
