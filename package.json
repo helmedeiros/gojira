@@ -29,7 +29,8 @@
     "test": "mocha --recursive spec/mocha",
     "lint": "eslint .",
     "coverage": "istanbul cover -x \"spec/**\" node_modules/mocha/bin/_mocha -- --recursive spec/mocha",
-    "coverage:check": "istanbul check-coverage --statements 90 --branches 85 --functions 90 --lines 90"
+    "coverage:check": "istanbul check-coverage --statements 90 --branches 85 --functions 90 --lines 90",
+    "demo": "node scripts/generate_demo.js"
   },
   "repository": {
     "type": "git",
