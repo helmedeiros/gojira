@@ -1,0 +1,3 @@
+title: gojira
+description: Extract Jira issues and control-chart durations into CSV, JSON, Markdown or HTML reports
+theme: jekyll-theme-minimal
