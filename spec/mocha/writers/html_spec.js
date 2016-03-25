@@ -87,4 +87,20 @@ describe('writers/html', function () {
         expect(out).to.contain('&amp;');
         expect(out).to.contain('&quot;xss&quot;');
     });
+
+    it('omits the summary panel by default', function () {
+        var out = html_writer.build(issues, working_times, config);
+        expect(out).to.not.contain('<section class="summary">');
+        expect(out).to.not.contain('Throughput');
+    });
+
+    it('appends a summary panel when include_metrics is true', function () {
+        var enriched = Object.assign({}, config, { include_metrics: true });
+        var out = html_writer.build(issues, working_times, enriched);
+        expect(out).to.contain('<section class="summary">');
+        expect(out).to.contain('<h2>Summary</h2>');
+        expect(out).to.contain('Throughput');
+        expect(out).to.contain('Cycle time mean');
+        expect(out).to.contain('Cycle time p95');
+    });
 });
