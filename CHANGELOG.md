@@ -2,6 +2,15 @@
 
 All notable changes to this project are documented here.
 
+## 1.7.0 — 2016-03-28
+
+### Added
+- `lib/writers/html.js` — HTML writer that emits a full document (DOCTYPE + embedded CSS theme + table). Output is escaped against HTML injection.
+- `html` registered in the writers dispatcher and `output_format` allow-list. `gojira -f html` produces a stylable report.
+- Summary panel appended after the data table when `include_metrics` is set (throughput, velocity, wip, cycle-time mean/median/p85/p95).
+- `npm run demo` regenerates `docs/demo/sample_report.html` from canned data.
+- GitHub Pages enabled on `master:/docs` with `docs/index.md` as the landing page and `docs/_config.yml` for Jekyll. Live at https://helmedeiros.github.io/gojira/.
+
 ## 1.6.0 — 2016-03-18
 
 ### Added
