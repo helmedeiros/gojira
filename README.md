@@ -3,7 +3,9 @@
 [![Build Status](https://travis-ci.org/helmedeiros/gojira.svg?branch=master)](https://travis-ci.org/helmedeiros/gojira)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Series of tasks to extract Jira data.
+Extract Jira issues and control-chart durations into CSV, JSON, Markdown or HTML reports.
+
+**Demo:** [helmedeiros.github.io/gojira](https://helmedeiros.github.io/gojira/) — landing page with a [sample HTML report](https://helmedeiros.github.io/gojira/demo/sample_report.html) generated from canned data.
 
 
 ## Installation
