@@ -4,6 +4,25 @@ title: gojira
 
 # gojira
 
+```
+                            .       .
+                           / `.   .' \
+                   .---.  <    > <    >  .---.
+                   |    \  \ - ~ ~ - /  /    |
+                    ~-..-~             ~-..-~
+                \~~~\.'                    `./~~~/
+                 \__/                        \__/
+                  /                  .-    .  \
+           _._ _.-    .-~ ~-.       /       }   \/~~~/
+       _.-'q  }~     /       }     {        ;    \  /
+      {'__,  /      (       /      {       /      \/
+       `''''='~~-.__(      /_      __\____/_______/
+                   / \   =/  ~~--~~{    .Y.   }
+                  {   \  +\         \  .'   /
+                  |   |   {         }     /
+                 |    |   |         |    |
+```
+
 Extract Jira issues and control-chart durations into CSV, JSON, Markdown or HTML reports.
 
 [Source on GitHub](https://github.com/helmedeiros/gojira)
