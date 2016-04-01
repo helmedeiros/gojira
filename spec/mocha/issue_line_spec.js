@@ -42,4 +42,18 @@ describe('issue_line', function () {
         var line = issue_line.from(jira_issue, config);
         expect(line.projected_lead_time).to.equal(5);
     });
+
+    it('captures created and resolutiondate from Jira fields', function () {
+        jira_issue.fields.created = '2016-01-10T09:00:00.000+0000';
+        jira_issue.fields.resolutiondate = '2016-01-20T17:00:00.000+0000';
+        var line = issue_line.from(jira_issue, config);
+        expect(line.created_at).to.equal('2016-01-10T09:00:00.000+0000');
+        expect(line.resolved_at).to.equal('2016-01-20T17:00:00.000+0000');
+    });
+
+    it('falls back to null when the date fields are missing', function () {
+        var line = issue_line.from(jira_issue, config);
+        expect(line.created_at).to.equal(null);
+        expect(line.resolved_at).to.equal(null);
+    });
 });
