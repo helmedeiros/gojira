@@ -17,7 +17,9 @@ describe('writers/html', function () {
             issuetype: { name: 'Story' },
             status: { name: 'Done' },
             summary: 'Sample',
-            customfield_10003: 4
+            customfield_10003: 4,
+            created: '2016-01-05T09:00:00.000+0000',
+            resolutiondate: '2016-01-12T17:00:00.000+0000'
         }
     }];
 
@@ -102,5 +104,22 @@ describe('writers/html', function () {
         expect(out).to.contain('Throughput');
         expect(out).to.contain('Cycle time mean');
         expect(out).to.contain('Cycle time p95');
+    });
+
+    it('embeds chart SVGs when include_metrics is true', function () {
+        var enriched = Object.assign({}, config, { include_metrics: true });
+        var out = html_writer.build(issues, working_times, enriched);
+        expect(out).to.contain('<section class="charts">');
+        expect(out).to.contain('Cycle time distribution (days)');
+        expect(out).to.contain('Cycle time over time');
+        expect(out).to.contain('Throughput per ISO week');
+        expect(out).to.contain('Time in each column');
+        expect(out).to.contain('<svg');
+    });
+
+    it('omits chart SVGs when include_metrics is false', function () {
+        var out = html_writer.build(issues, working_times, config);
+        expect(out).to.not.contain('<section class="charts">');
+        expect(out).to.not.contain('<svg');
     });
 });
