@@ -31,4 +31,9 @@ describe('durations', function () {
         durations.populate(line, issues, 'DEMO-100', csv_columns, 1);
         expect(line.lead_time).to.equal(8);
     });
+
+    it('exposes per-column durations as a numeric array', function () {
+        durations.populate(line, issues, 'DEMO-100', csv_columns, 1);
+        expect(line.times_array).to.eql([8, 5, 1, 2, 75]);
+    });
 });
