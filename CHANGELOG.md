@@ -2,6 +2,20 @@
 
 All notable changes to this project are documented here.
 
+## 1.8.0 — 2016-04-08
+
+### Added
+- `lib/charts/` — pure-SVG renderers, zero JS deps at view time:
+  - `histogram` — cycle-time distribution
+  - `scatter` — cycle time over time (resolution date vs lead time)
+  - `throughput_by_week` — items resolved per ISO week
+  - `stacked_bars` — per-issue time-in-column breakdown
+- `lib/charts/svg.js` — shared SVG primitives with XML escaping.
+- `issue_line` captures `created_at` and `resolved_at` from Jira (`created` / `resolutiondate` fields).
+- `durations.populate` exposes per-column durations as `line.times_array` (in addition to the existing CSV string).
+- HTML writer embeds all four charts inside a `<section class="charts">` panel when `include_metrics` is true.
+- `npm run demo` now seeds resolution dates so the demo report's charts render.
+
 ## 1.7.0 — 2016-03-28
 
 ### Added
