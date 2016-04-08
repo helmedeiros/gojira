@@ -12,14 +12,28 @@ var config = {
     include_metrics: true
 };
 
+function issue(key, type, points, summary, created, resolved) {
+    return {
+        key: key,
+        fields: {
+            issuetype: { name: type },
+            status: { name: 'Done' },
+            summary: summary,
+            customfield_10003: points,
+            created: created,
+            resolutiondate: resolved
+        }
+    };
+}
+
 var issues = [
-    { key: 'DEMO-101', fields: { issuetype: { name: 'Story' }, status: { name: 'Done' }, summary: 'Add carrier filter to search results', customfield_10003: 5 } },
-    { key: 'DEMO-102', fields: { issuetype: { name: 'Story' }, status: { name: 'Done' }, summary: 'Display origin timezone on itinerary', customfield_10003: 3 } },
-    { key: 'DEMO-103', fields: { issuetype: { name: 'Bug' }, status: { name: 'Done' }, summary: 'Total fare drops the currency symbol on iOS', customfield_10003: 2 } },
-    { key: 'DEMO-104', fields: { issuetype: { name: 'Story' }, status: { name: 'Done' }, summary: 'Persist user filter selections across sessions', customfield_10003: 8 } },
-    { key: 'DEMO-105', fields: { issuetype: { name: 'Story' }, status: { name: 'Done' }, summary: 'Surface refund eligibility on the booking detail page', customfield_10003: 13 } },
-    { key: 'DEMO-106', fields: { issuetype: { name: 'Bug' }, status: { name: 'Done' }, summary: 'Date picker offsets by one day in DST week', customfield_10003: 1 } },
-    { key: 'DEMO-107', fields: { issuetype: { name: 'Story' }, status: { name: 'Done' }, summary: 'Send confirmation email in the locale of the user', customfield_10003: 5 } }
+    issue('DEMO-101', 'Story', 5, 'Add carrier filter to search results', '2016-01-04T09:00:00.000+0000', '2016-01-15T17:00:00.000+0000'),
+    issue('DEMO-102', 'Story', 3, 'Display origin timezone on itinerary', '2016-01-08T09:00:00.000+0000', '2016-01-22T17:00:00.000+0000'),
+    issue('DEMO-103', 'Bug', 2, 'Total fare drops the currency symbol on iOS', '2016-01-20T09:00:00.000+0000', '2016-01-22T17:00:00.000+0000'),
+    issue('DEMO-104', 'Story', 8, 'Persist user filter selections across sessions', '2016-01-18T09:00:00.000+0000', '2016-02-05T17:00:00.000+0000'),
+    issue('DEMO-105', 'Story', 13, 'Surface refund eligibility on the booking detail page', '2016-01-25T09:00:00.000+0000', '2016-02-19T17:00:00.000+0000'),
+    issue('DEMO-106', 'Bug', 1, 'Date picker offsets by one day in DST week', '2016-02-22T09:00:00.000+0000', '2016-02-26T17:00:00.000+0000'),
+    issue('DEMO-107', 'Story', 5, 'Send confirmation email in the locale of the user', '2016-02-20T09:00:00.000+0000', '2016-03-04T17:00:00.000+0000')
 ];
 
 var working = [
