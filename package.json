@@ -1,6 +1,6 @@
 {
   "name": "gojira",
-  "version": "1.8.0",
+  "version": "1.9.0",
   "description": "Extract Jira issues and control-chart durations into CSV, JSON, Markdown or HTML reports",
   "main": "index.js",
   "bin": {
