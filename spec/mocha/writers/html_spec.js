@@ -110,6 +110,7 @@ describe('writers/html', function () {
         var enriched = Object.assign({}, config, { include_metrics: true });
         var out = html_writer.build(issues, working_times, enriched);
         expect(out).to.contain('<section class="charts">');
+        expect(out).to.contain('Cumulative flow (approximate)');
         expect(out).to.contain('Cycle time distribution (days)');
         expect(out).to.contain('Cycle time over time');
         expect(out).to.contain('Throughput per ISO week');
