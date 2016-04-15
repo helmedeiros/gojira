@@ -2,6 +2,14 @@
 
 All notable changes to this project are documented here.
 
+## 1.9.0 — 2016-04-13
+
+### Added
+- `lib/transitions.js` — back-derive per-column entry timestamps from `resolved_at` + `times_array` (assumes forward-only flow).
+- `lib/charts/cfd.js` — approximate Cumulative Flow Diagram as a stacked-area SVG.
+- HTML writer renders the CFD as the first chart in the panel, ahead of the other four chart types.
+- `docs/metrics.md` documents the chart suite and the CFD's "approximate" caveat.
+
 ## 1.8.0 — 2016-04-08
 
 ### Added
