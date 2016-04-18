@@ -2,6 +2,12 @@
 
 All notable changes to this project are documented here.
 
+## 1.10.0 — 2016-04-18
+
+### Added
+- CLI flags `--project / -p`, `--from`, `--to` — override `project_key`, `from`, `to` from the config for one run.
+- `main.run` now applies these overrides through the same `OVERRIDABLE` plumbing as the other CLI flags.
+
 ## 1.9.0 — 2016-04-13
 
 ### Added
