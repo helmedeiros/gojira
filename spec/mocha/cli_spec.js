@@ -51,6 +51,26 @@ describe('cli.parse', function () {
         expect(cli.parse(argv([])).log_level).to.be.undefined;
     });
 
+    it('parses --project / -p', function () {
+        expect(cli.parse(argv(['--project', 'TEAM'])).project_key).to.equal('TEAM');
+        expect(cli.parse(argv(['-p', 'TEAM'])).project_key).to.equal('TEAM');
+    });
+
+    it('parses --from', function () {
+        expect(cli.parse(argv(['--from', '2016-01-01'])).from).to.equal('2016-01-01');
+    });
+
+    it('parses --to', function () {
+        expect(cli.parse(argv(['--to', '2016-12-31'])).to).to.equal('2016-12-31');
+    });
+
+    it('leaves project_key, from and to undefined when not provided', function () {
+        var options = cli.parse(argv([]));
+        expect(options.project_key).to.be.undefined;
+        expect(options.from).to.be.undefined;
+        expect(options.to).to.be.undefined;
+    });
+
     it('parses multiple flags together', function () {
         var options = cli.parse(argv([
             '-c', 'team.json',
