@@ -42,8 +42,11 @@ node index.js [options]
 
   -c, --config <path>    Path to project_config.json (default: ./project_config.json)
   -o, --output <path>    Override output_csv_path
-  -f, --format <format>  Override output_format (csv|json|markdown)
+  -f, --format <format>  Override output_format (csv|json|markdown|html)
   -t, --target <target>  Override output_target (file|stdout)
+  -p, --project <key>    Override project_key
+      --from <date>      Override the from date (YYYY-MM-DD)
+      --to <date>        Override the to date (YYYY-MM-DD)
   -q, --quiet            Silence logger output
   -v, --verbose          Enable debug logging (e.g. show outgoing HTTP requests)
 ```
@@ -53,6 +56,8 @@ Examples:
 node index.js --config team_config.json
 node index.js --format json --target stdout > issues.json
 node index.js --config team_config.json --output /tmp/team.csv
+node index.js --project TEAM --from 2016-01-01 --to 2016-03-31
+node index.js -p TEAM -f html -o report.html --from 2016-01-01 --to 2016-03-31
 ```
 
 
