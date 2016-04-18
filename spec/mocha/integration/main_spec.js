@@ -87,4 +87,21 @@ describe('main.run (integration)', function () {
             expect(base_config.output_format).to.equal('csv');
         });
     });
+
+    it('honors --project / project_key override', function () {
+        return main.run({ output_csv_path: output_path, project_key: 'TEAM' }).then(function () {
+            expect(base_config.project_key).to.equal('TEAM');
+        });
+    });
+
+    it('honors --from and --to overrides', function () {
+        return main.run({
+            output_csv_path: output_path,
+            from: '2016-02-01',
+            to: '2016-02-28'
+        }).then(function () {
+            expect(base_config.from).to.equal('2016-02-01');
+            expect(base_config.to).to.equal('2016-02-28');
+        });
+    });
 });
