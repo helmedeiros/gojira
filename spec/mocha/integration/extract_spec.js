@@ -49,16 +49,16 @@ describe('extract (integration)', function () {
     });
 
     it('produces a csv string when output_format is csv', function () {
-        return extract.run(config).then(function (output) {
-            expect(output).to.contain('Type,Key,Summary');
-            expect(output).to.contain('Story,DEMO-1');
+        return extract.run(config).then(function (result) {
+            expect(result.output).to.contain('Type,Key,Summary');
+            expect(result.output).to.contain('Story,DEMO-1');
         });
     });
 
     it('produces a json array when output_format is json', function () {
         config.output_format = 'json';
-        return extract.run(config).then(function (output) {
-            var parsed = JSON.parse(output);
+        return extract.run(config).then(function (result) {
+            var parsed = JSON.parse(result.output);
             expect(parsed).to.have.length(1);
             expect(parsed[0].key).to.equal('DEMO-1');
         });
@@ -66,24 +66,31 @@ describe('extract (integration)', function () {
 
     it('produces a markdown table when output_format is markdown', function () {
         config.output_format = 'markdown';
-        return extract.run(config).then(function (output) {
-            expect(output).to.contain('| Type | Key | Summary');
-            expect(output).to.contain('| DEMO-1 |');
+        return extract.run(config).then(function (result) {
+            expect(result.output).to.contain('| Type | Key | Summary');
+            expect(result.output).to.contain('| DEMO-1 |');
         });
     });
 
     it('produces an HTML document when output_format is html', function () {
         config.output_format = 'html';
-        return extract.run(config).then(function (output) {
-            expect(output).to.match(/^<!DOCTYPE html>/);
-            expect(output).to.contain('<td>DEMO-1</td>');
+        return extract.run(config).then(function (result) {
+            expect(result.output).to.match(/^<!DOCTYPE html>/);
+            expect(result.output).to.contain('<td>DEMO-1</td>');
         });
     });
 
-    it('returns null when the issues response has no issues key', function () {
+    it('returns null output when the issues response has no issues key', function () {
         stub.onCall(1).returns(Promise.resolve({ data: {} }));
-        return extract.run(config).then(function (output) {
-            expect(output).to.equal(null);
+        return extract.run(config).then(function (result) {
+            expect(result.output).to.equal(null);
+        });
+    });
+
+    it('exposes the fetched issues and working_times alongside output', function () {
+        return extract.run(config).then(function (result) {
+            expect(result.issues).to.have.length(1);
+            expect(result.working_times).to.have.length(1);
         });
     });
 
