@@ -104,4 +104,25 @@ describe('main.run (integration)', function () {
             expect(base_config.to).to.equal('2016-02-28');
         });
     });
+
+    it('writes one SVG per chart into charts_dir', function () {
+        var charts_dir = path.join(os.tmpdir(), 'gojira-charts-' + process.pid);
+        return main.run({ output_csv_path: output_path, charts_dir: charts_dir })
+            .then(function () {
+                var files = fs.readdirSync(charts_dir).sort();
+                expect(files).to.eql([
+                    'cfd.svg',
+                    'cycle_time_histogram.svg',
+                    'cycle_time_scatter.svg',
+                    'throughput_by_week.svg',
+                    'time_in_column.svg'
+                ]);
+                files.forEach(function (name) {
+                    var content = fs.readFileSync(path.join(charts_dir, name), 'utf8');
+                    expect(content).to.contain('<svg');
+                });
+                files.forEach(function (name) { fs.unlinkSync(path.join(charts_dir, name)); });
+                fs.rmdirSync(charts_dir);
+            });
+    });
 });

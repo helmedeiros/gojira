@@ -71,6 +71,10 @@ describe('cli.parse', function () {
         expect(options.to).to.be.undefined;
     });
 
+    it('parses --charts-dir', function () {
+        expect(cli.parse(argv(['--charts-dir', './out/charts'])).charts_dir).to.equal('./out/charts');
+    });
+
     it('parses multiple flags together', function () {
         var options = cli.parse(argv([
             '-c', 'team.json',
