@@ -2,6 +2,16 @@
 
 All notable changes to this project are documented here.
 
+## 1.11.0 — 2016-04-27
+
+### Added
+- `--charts-dir <path>` CLI flag — writes each chart (`cfd.svg`, `cycle_time_histogram.svg`, `cycle_time_scatter.svg`, `throughput_by_week.svg`, `time_in_column.svg`) as a standalone SVG into the given directory. Useful for embedding in slides, wikis or dashboards.
+- `lib/chart_builder.js` — composes the chart SVG bundle from lines + config. Used by both the HTML writer and the new `--charts-dir` writer path.
+
+### Changed
+- `extract.run` now returns `{ output, issues, working_times }` instead of just the output string, so callers can reuse the fetched data without a second round trip.
+- HTML writer delegates chart composition to `chart_builder`.
+
 ## 1.10.0 — 2016-04-18
 
 ### Added

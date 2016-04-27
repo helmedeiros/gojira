@@ -47,6 +47,7 @@ node index.js [options]
   -p, --project <key>    Override project_key
       --from <date>      Override the from date (YYYY-MM-DD)
       --to <date>        Override the to date (YYYY-MM-DD)
+      --charts-dir <path> Also write each chart as a standalone SVG into the given directory
   -q, --quiet            Silence logger output
   -v, --verbose          Enable debug logging (e.g. show outgoing HTTP requests)
 ```
@@ -58,6 +59,7 @@ node index.js --format json --target stdout > issues.json
 node index.js --config team_config.json --output /tmp/team.csv
 node index.js --project TEAM --from 2016-01-01 --to 2016-03-31
 node index.js -p TEAM -f html -o report.html --from 2016-01-01 --to 2016-03-31
+node index.js --charts-dir ./reports/charts        # main output + 5 standalone SVGs
 ```
 
 
