@@ -70,4 +70,48 @@ describe('issues_loader (integration)', function () {
             expect(err.message).to.equal('boom');
         });
     });
+
+    describe('with include_changelog', function () {
+        beforeEach(function () {
+            config.include_changelog = true;
+        });
+
+        it('issues a changelog request per issue and attaches transitions', function () {
+            stub.onCall(0).returns(Promise.resolve({
+                data: { issues: [{ key: 'DEMO-1' }, { key: 'DEMO-2' }] }
+            }));
+            stub.onCall(1).returns(Promise.resolve({
+                data: {
+                    fields: { created: '2016-01-10T00:00:00Z' },
+                    changelog: { histories: [
+                        { created: '2016-01-11T00:00:00Z', items: [{ field: 'status', fromString: 'Backlog', toString: 'Done' }] }
+                    ] }
+                }
+            }));
+            stub.onCall(2).returns(Promise.resolve({
+                data: {
+                    fields: { created: '2016-01-12T00:00:00Z' },
+                    changelog: { histories: [
+                        { created: '2016-01-13T00:00:00Z', items: [{ field: 'status', fromString: 'Backlog', toString: 'Done' }] }
+                    ] }
+                }
+            }));
+
+            return issues_loader.load(config).then(function (issues) {
+                expect(issues).to.have.length(2);
+                expect(issues[0].transitions).to.have.length(2);
+                expect(issues[0].transitions[0]).to.eql({ at: '2016-01-10T00:00:00Z', to_status: 'Backlog' });
+                expect(issues[0].transitions[1]).to.eql({ at: '2016-01-11T00:00:00Z', to_status: 'Done' });
+                expect(issues[1].transitions).to.have.length(2);
+            });
+        });
+
+        it('falls through without enrichment when issues is null', function () {
+            stub.onCall(0).returns(Promise.resolve({ data: {} }));
+            return issues_loader.load(config).then(function (issues) {
+                expect(issues).to.equal(undefined);
+                expect(stub.callCount).to.equal(1);
+            });
+        });
+    });
 });
