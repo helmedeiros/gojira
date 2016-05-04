@@ -52,4 +52,23 @@ describe('chart_builder', function () {
             expect(chart.svg).to.contain('<svg');
         });
     });
+
+    it('marks the CFD as approximate when no line has real transitions', function () {
+        var cfd_chart = chart_builder.build(lines, config).find(function (c) { return c.name === 'cfd.svg'; });
+        expect(cfd_chart.svg).to.contain('Cumulative flow (approximate)');
+    });
+
+    it('drops the approximate suffix when at least one line has real transitions', function () {
+        var enriched = lines.map(function (l) { return l; });
+        enriched[0] = Object.assign({}, lines[0], {
+            transitions: [
+                { at: '2016-01-08T00:00:00Z', to_status: 'Backlog' },
+                { at: '2016-01-09T00:00:00Z', to_status: 'In Progress' },
+                { at: '2016-01-10T00:00:00Z', to_status: 'Done' }
+            ]
+        });
+        var cfd_chart = chart_builder.build(enriched, config).find(function (c) { return c.name === 'cfd.svg'; });
+        expect(cfd_chart.svg).to.contain('Cumulative flow<');
+        expect(cfd_chart.svg).to.not.contain('approximate');
+    });
 });
