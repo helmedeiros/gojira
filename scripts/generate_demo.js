@@ -3,16 +3,29 @@ var fs = require('fs');
 var html_writer = require('../lib/writers/html');
 
 var DAY = 24 * 60 * 60 * 1000;
+var COLUMNS = ['Backlog', 'In Progress', 'Code Review', 'QA', 'Done'];
 
 var config = {
     points_per_day: 1.25,
-    csv_header_columns: 'Backlog,In Progress,Code Review,QA,Done',
+    csv_header_columns: COLUMNS.join(','),
     first_column_to_count: 1,
     story_points_field: 'customfield_10003',
     include_metrics: true
 };
 
-function issue(key, type, points, summary, created, resolved) {
+function gen_transitions(times_days, resolved_iso) {
+    var resolved_ms = new Date(resolved_iso).getTime();
+    var entered = new Array(COLUMNS.length);
+    entered[COLUMNS.length - 1] = resolved_ms;
+    for (var i = COLUMNS.length - 2; i >= 0; i--) {
+        entered[i] = entered[i + 1] - times_days[i] * DAY;
+    }
+    return COLUMNS.map(function (column, idx) {
+        return { at: new Date(entered[idx]).toISOString(), to_status: column };
+    });
+}
+
+function issue(key, type, points, summary, created, resolved, times_days) {
     return {
         key: key,
         fields: {
@@ -22,29 +35,42 @@ function issue(key, type, points, summary, created, resolved) {
             customfield_10003: points,
             created: created,
             resolutiondate: resolved
-        }
+        },
+        transitions: gen_transitions(times_days, resolved)
     };
 }
 
-var issues = [
-    issue('DEMO-101', 'Story', 5, 'Add carrier filter to search results', '2016-01-04T09:00:00.000+0000', '2016-01-15T17:00:00.000+0000'),
-    issue('DEMO-102', 'Story', 3, 'Display origin timezone on itinerary', '2016-01-08T09:00:00.000+0000', '2016-01-22T17:00:00.000+0000'),
-    issue('DEMO-103', 'Bug', 2, 'Total fare drops the currency symbol on iOS', '2016-01-20T09:00:00.000+0000', '2016-01-22T17:00:00.000+0000'),
-    issue('DEMO-104', 'Story', 8, 'Persist user filter selections across sessions', '2016-01-18T09:00:00.000+0000', '2016-02-05T17:00:00.000+0000'),
-    issue('DEMO-105', 'Story', 13, 'Surface refund eligibility on the booking detail page', '2016-01-25T09:00:00.000+0000', '2016-02-19T17:00:00.000+0000'),
-    issue('DEMO-106', 'Bug', 1, 'Date picker offsets by one day in DST week', '2016-02-22T09:00:00.000+0000', '2016-02-26T17:00:00.000+0000'),
-    issue('DEMO-107', 'Story', 5, 'Send confirmation email in the locale of the user', '2016-02-20T09:00:00.000+0000', '2016-03-04T17:00:00.000+0000')
+var demo_data = [
+    { key: 'DEMO-101', type: 'Story', pts: 5, summary: 'Add carrier filter to search results',
+      created: '2016-01-04T09:00:00.000+0000', resolved: '2016-01-15T17:00:00.000+0000',
+      times: [1, 2, 1, 1, 90] },
+    { key: 'DEMO-102', type: 'Story', pts: 3, summary: 'Display origin timezone on itinerary',
+      created: '2016-01-08T09:00:00.000+0000', resolved: '2016-01-22T17:00:00.000+0000',
+      times: [5, 3, 0, 1, 60] },
+    { key: 'DEMO-103', type: 'Bug', pts: 2, summary: 'Total fare drops the currency symbol on iOS',
+      created: '2016-01-20T09:00:00.000+0000', resolved: '2016-01-22T17:00:00.000+0000',
+      times: [0, 1, 0, 1, 45] },
+    { key: 'DEMO-104', type: 'Story', pts: 8, summary: 'Persist user filter selections across sessions',
+      created: '2016-01-18T09:00:00.000+0000', resolved: '2016-02-05T17:00:00.000+0000',
+      times: [3, 8, 2, 3, 30] },
+    { key: 'DEMO-105', type: 'Story', pts: 13, summary: 'Surface refund eligibility on the booking detail page',
+      created: '2016-01-25T09:00:00.000+0000', resolved: '2016-02-19T17:00:00.000+0000',
+      times: [7, 12, 4, 5, 14] },
+    { key: 'DEMO-106', type: 'Bug', pts: 1, summary: 'Date picker offsets by one day in DST week',
+      created: '2016-02-22T09:00:00.000+0000', resolved: '2016-02-26T17:00:00.000+0000',
+      times: [0, 1, 0, 1, 7] },
+    { key: 'DEMO-107', type: 'Story', pts: 5, summary: 'Send confirmation email in the locale of the user',
+      created: '2016-02-20T09:00:00.000+0000', resolved: '2016-03-04T17:00:00.000+0000',
+      times: [2, 4, 1, 2, 21] }
 ];
 
-var working = [
-    { key: 'DEMO-101', workingTime: [1 * DAY, 2 * DAY, 1 * DAY, 1 * DAY, 90 * DAY] },
-    { key: 'DEMO-102', workingTime: [5 * DAY, 3 * DAY, 0, 1 * DAY, 60 * DAY] },
-    { key: 'DEMO-103', workingTime: [0, 1 * DAY, 0, 1 * DAY, 45 * DAY] },
-    { key: 'DEMO-104', workingTime: [3 * DAY, 8 * DAY, 2 * DAY, 3 * DAY, 30 * DAY] },
-    { key: 'DEMO-105', workingTime: [7 * DAY, 12 * DAY, 4 * DAY, 5 * DAY, 14 * DAY] },
-    { key: 'DEMO-106', workingTime: [0, 1 * DAY, 0, 1 * DAY, 7 * DAY] },
-    { key: 'DEMO-107', workingTime: [2 * DAY, 4 * DAY, 1 * DAY, 2 * DAY, 21 * DAY] }
-];
+var issues = demo_data.map(function (d) {
+    return issue(d.key, d.type, d.pts, d.summary, d.created, d.resolved, d.times);
+});
+
+var working = demo_data.map(function (d) {
+    return { key: d.key, workingTime: d.times.map(function (t) { return t * DAY; }) };
+});
 
 var output_path = path.resolve(__dirname, '..', 'docs', 'demo', 'sample_report.html');
 fs.writeFileSync(output_path, html_writer.build(issues, working, config));
