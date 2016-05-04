@@ -68,4 +68,8 @@ When `include_metrics` is true and the writer is `html`, the report appends a `<
 | Throughput per ISO week | resolved_at | Bar chart of items resolved per ISO week |
 | Time in each column | times_array | Per-issue stacked bar — where each item spent its time |
 
-The CFD is **approximate**: it back-derives entry timestamps for each column from `resolved_at` minus the durations in `times_array`. It assumes items moved forward through columns without backwards transitions. A "real" CFD requires Jira's full changelog, which gojira does not currently fetch.
+## Real transitions via the changelog
+
+By default the CFD back-derives entry timestamps from `resolved_at` minus the durations in `times_array`, which assumes forward-only flow. Set `include_changelog: true` in `project_config.json` and gojira fans out a `?expand=changelog` request per issue, then uses the real `status` transition timestamps Jira recorded. When real events are present the CFD title drops the "approximate" suffix.
+
+Costs: one extra HTTP request per issue. For large boards this can dominate run time — leave `include_changelog` off when you only need cycle-time/throughput numbers.

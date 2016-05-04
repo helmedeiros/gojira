@@ -2,6 +2,18 @@
 
 All notable changes to this project are documented here.
 
+## 1.12.0 — 2016-05-04
+
+### Added
+- `include_changelog` config flag — when true, gojira fans out an `?expand=changelog` request per issue and attaches the parsed status transitions to each issue.
+- `lib/changelog_url.js`, `lib/changelog_parser.js`, `lib/changelog_loader.js` — building blocks for the new fetch path.
+- `transitions.for_line` now accepts a `columns` array and prefers real changelog events when every column has a matching event; falls back to the existing back-derivation otherwise.
+- `chart_builder` drops the "(approximate)" suffix on the CFD title when at least one line carries real transitions.
+
+### Changed
+- `issue_line.from` copies `issue.transitions` onto the line so downstream chart code can see it.
+- Demo data now seeds canned transitions; the live demo CFD now reads "Cumulative flow" (without "approximate").
+
 ## 1.11.0 — 2016-04-27
 
 ### Added
