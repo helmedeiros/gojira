@@ -78,6 +78,11 @@ describe('config', function () {
         expect(loaded.include_changelog).to.equal(false);
     });
 
+    it('defaults include_aging_wip to false when missing', function () {
+        var loaded = config.load('./spec/fixtures/sample_config.json');
+        expect(loaded.include_aging_wip).to.equal(false);
+    });
+
     it('defaults output_format to csv when missing', function () {
         var loaded = config.load('./spec/fixtures/sample_config.json');
         expect(loaded.output_format).to.equal('csv');
