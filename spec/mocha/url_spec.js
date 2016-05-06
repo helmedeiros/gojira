@@ -20,6 +20,13 @@ describe('url', function () {
         );
     });
 
+    it('lets the caller override the status filter', function () {
+        var generated = url.issues(base_url, 'DEMO', '', null, '50', 'a_user', 'a_password', 'status!=Done');
+
+        expect(generated).to.contain('jql=project=DEMO+and+status!=Done');
+        expect(generated).to.contain('maxResults=50');
+    });
+
     it('builds the json control chart url from the source url, user and dates', function () {
         var control_chart =
             'https://jira.example.com/secure/RapidBoard.jspa?rapidView=1853&view=reporting&chart=controlChart&swimlane=12000&swimlane=10450&swimlane=11466&swimlane=11263&swimlane=11138&swimlane=10926&swimlane=7060&swimlane=7764&swimlane=7062&swimlane=7061&swimlane=7058&column=4325&column=4328&column=4334&days=7';
