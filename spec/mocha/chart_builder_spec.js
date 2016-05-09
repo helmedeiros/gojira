@@ -71,4 +71,36 @@ describe('chart_builder', function () {
         expect(cfd_chart.svg).to.contain('Cumulative flow<');
         expect(cfd_chart.svg).to.not.contain('approximate');
     });
+
+    it('omits aging_wip when no active_issues are provided', function () {
+        var charts = chart_builder.build(lines, config);
+        expect(charts.find(function (c) { return c.name === 'aging_wip.svg'; })).to.be.undefined;
+    });
+
+    it('appends an aging_wip chart when active_issues are present', function () {
+        var DAY = 24 * 60 * 60 * 1000;
+        var now_ms = Date.UTC(2016, 1, 1);
+        var active_issues = [
+            {
+                key: 'DEMO-501',
+                fields: { status: { name: 'In Progress' }, created: new Date(now_ms - 5 * DAY).toISOString() },
+                transitions: [
+                    { at: new Date(now_ms - 5 * DAY).toISOString(), to_status: 'Backlog' },
+                    { at: new Date(now_ms - 3 * DAY).toISOString(), to_status: 'In Progress' }
+                ]
+            },
+            {
+                key: 'DEMO-502',
+                fields: { status: { name: 'Code Review' }, created: new Date(now_ms - 8 * DAY).toISOString() }
+            }
+        ];
+        var charts = chart_builder.build(lines, config, { active_issues: active_issues, now_ms: now_ms });
+        var aging = charts.find(function (c) { return c.name === 'aging_wip.svg'; });
+        expect(aging).to.exist;
+        expect(aging.svg).to.contain('Aging WIP');
+        expect(aging.svg).to.contain('DEMO-501');
+        expect(aging.svg).to.contain('DEMO-502');
+        expect(aging.svg).to.contain('>3d<');
+        expect(aging.svg).to.contain('>8d<');
+    });
 });
