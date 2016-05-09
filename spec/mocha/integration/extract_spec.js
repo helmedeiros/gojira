@@ -94,6 +94,25 @@ describe('extract (integration)', function () {
         });
     });
 
+    it('returns active_issues as empty when include_aging_wip is not set', function () {
+        return extract.run(config).then(function (result) {
+            expect(result.active_issues).to.eql([]);
+        });
+    });
+
+    it('fetches active_issues when include_aging_wip is true', function () {
+        config.include_aging_wip = true;
+        stub.onCall(2).returns(Promise.resolve({
+            data: { issues: [{ key: 'DEMO-501', fields: { status: { name: 'In Progress' } } }] }
+        }));
+        return extract.run(config).then(function (result) {
+            expect(result.active_issues).to.have.length(1);
+            expect(result.active_issues[0].key).to.equal('DEMO-501');
+            var third_call_url = stub.thirdCall.args[0];
+            expect(third_call_url).to.contain('status!=Done');
+        });
+    });
+
     it('rejects when the control chart load fails', function () {
         stub.onCall(0).returns(Promise.reject(new Error('control chart down')));
         return extract.run(config).then(function () {
