@@ -14,8 +14,11 @@
         tbody tr:nth-child(even) { background: #fafbfc; }
         .summary table { width: auto; }
         .summary th { background: #f6f8fa; }
-        .charts figure { margin: 1rem 0; }
+        .charts-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem 1.5rem; }
+        .charts-grid figure { margin: 0; min-width: 0; }
+        .charts-grid svg { width: 100%; height: auto; }
         .charts figcaption { font-size: 0.8rem; color: #586069; margin-top: 0.25rem; }
+        @media (max-width: 720px) { .charts-grid { grid-template-columns: 1fr; } }
         td:nth-child(2) { font-family: SFMono-Regular, Menlo, monospace; color: #0366d6; }
         td:nth-child(n+5) { text-align: right; font-variant-numeric: tabular-nums; }
     </style>
@@ -50,6 +53,7 @@
     </section>
     <section class="charts">
     <h2>Charts</h2>
+    <div class="charts-grid">
     <figure>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 280" width="600" height="280">
     <text x="300" y="14" fill="#24292e" text-anchor="middle" font-size="12">Cumulative flow</text>
@@ -153,6 +157,31 @@
     </svg>
     <figcaption>How long each issue spent in each status column.</figcaption>
     </figure>
+    <figure>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320" width="600" height="320">
+    <text x="300" y="14" fill="#24292e" text-anchor="middle" font-size="12">Aging WIP</text>
+    <text x="122" y="55" fill="#586069" text-anchor="end" font-size="11" font-family="SFMono-Regular, Menlo, monospace">DEMO-201</text>
+    <rect x="130" y="43" width="418" height="16" fill="#0366d6"/>
+    <text x="552" y="55" fill="#586069" text-anchor="start" font-size="11">18d</text>
+    <text x="122" y="77" fill="#586069" text-anchor="end" font-size="11" font-family="SFMono-Regular, Menlo, monospace">DEMO-204</text>
+    <rect x="130" y="65" width="255.44444444444446" height="16" fill="#f9826c"/>
+    <text x="389.44444444444446" y="77" fill="#586069" text-anchor="start" font-size="11">11d</text>
+    <text x="122" y="99" fill="#586069" text-anchor="end" font-size="11" font-family="SFMono-Regular, Menlo, monospace">DEMO-202</text>
+    <rect x="130" y="87" width="139.33333333333331" height="16" fill="#6f42c1"/>
+    <text x="273.3333333333333" y="99" fill="#586069" text-anchor="start" font-size="11">6d</text>
+    <text x="122" y="121" fill="#586069" text-anchor="end" font-size="11" font-family="SFMono-Regular, Menlo, monospace">DEMO-203</text>
+    <rect x="130" y="109" width="92.88888888888889" height="16" fill="#0366d6"/>
+    <text x="226.88888888888889" y="121" fill="#586069" text-anchor="start" font-size="11">4d</text>
+    <text x="122" y="143" fill="#586069" text-anchor="end" font-size="11" font-family="SFMono-Regular, Menlo, monospace">DEMO-205</text>
+    <rect x="130" y="131" width="46.44444444444444" height="16" fill="#0366d6"/>
+    <text x="180.44444444444446" y="143" fill="#586069" text-anchor="start" font-size="11">2d</text>
+    <rect x="130" y="158" width="12" height="12" fill="#0366d6"/><text x="146" y="168" fill="#586069" text-anchor="start" font-size="11">In Progress</text>
+    <rect x="240" y="158" width="12" height="12" fill="#f9826c"/><text x="256" y="168" fill="#586069" text-anchor="start" font-size="11">QA</text>
+    <rect x="350" y="158" width="12" height="12" fill="#6f42c1"/><text x="366" y="168" fill="#586069" text-anchor="start" font-size="11">Code Review</text>
+    </svg>
+    <figcaption>Active items ordered by how many days they have spent in their current status.</figcaption>
+    </figure>
+    </div>
     </section>
 </body>
 </html>

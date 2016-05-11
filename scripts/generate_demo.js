@@ -72,6 +72,33 @@ var working = demo_data.map(function (d) {
     return { key: d.key, workingTime: d.times.map(function (t) { return t * DAY; }) };
 });
 
+var NOW = Date.now();
+
+var active_data = [
+    { key: 'DEMO-201', status: 'In Progress', days: 18, summary: 'Profile photo upload regression on Android', type: 'Bug', pts: 5 },
+    { key: 'DEMO-202', status: 'Code Review', days: 6, summary: 'Switch onboarding to passwordless flow', type: 'Story', pts: 8 },
+    { key: 'DEMO-203', status: 'In Progress', days: 4, summary: 'Add Spanish copy for booking confirmation email', type: 'Story', pts: 3 },
+    { key: 'DEMO-204', status: 'QA', days: 11, summary: 'Round-trip filter ignores return city on long-haul', type: 'Bug', pts: 2 },
+    { key: 'DEMO-205', status: 'In Progress', days: 2, summary: 'Cache control_chart response for 60 seconds', type: 'Story', pts: 3 }
+];
+
+var active_issues = active_data.map(function (d) {
+    var since_iso = new Date(NOW - d.days * DAY).toISOString();
+    return {
+        key: d.key,
+        fields: {
+            issuetype: { name: d.type },
+            status: { name: d.status },
+            summary: d.summary,
+            customfield_10003: d.pts,
+            created: since_iso
+        },
+        transitions: [
+            { at: since_iso, to_status: d.status }
+        ]
+    };
+});
+
 var output_path = path.resolve(__dirname, '..', 'docs', 'demo', 'sample_report.html');
-fs.writeFileSync(output_path, html_writer.build(issues, working, config));
+fs.writeFileSync(output_path, html_writer.build(issues, working, config, active_issues));
 console.log('wrote', fs.statSync(output_path).size, 'bytes to', path.relative(process.cwd(), output_path));
