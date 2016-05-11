@@ -110,12 +110,35 @@ describe('writers/html', function () {
         var enriched = Object.assign({}, config, { include_metrics: true });
         var out = html_writer.build(issues, working_times, enriched);
         expect(out).to.contain('<section class="charts">');
+        expect(out).to.contain('<div class="charts-grid">');
         expect(out).to.contain('Cumulative flow (approximate)');
         expect(out).to.contain('Cycle time distribution (days)');
         expect(out).to.contain('Cycle time over time');
         expect(out).to.contain('Throughput per ISO week');
         expect(out).to.contain('Time in each column');
         expect(out).to.contain('<svg');
+    });
+
+    it('lays out charts in a two-column grid via CSS', function () {
+        var enriched = Object.assign({}, config, { include_metrics: true });
+        var out = html_writer.build(issues, working_times, enriched);
+        expect(out).to.contain('grid-template-columns: repeat(2, 1fr)');
+    });
+
+    it('renders aging WIP when active_issues are provided and include_metrics is true', function () {
+        var enriched = Object.assign({}, config, { include_metrics: true });
+        var active = [
+            {
+                key: 'DEMO-501',
+                fields: {
+                    status: { name: 'In Progress' },
+                    created: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
+                }
+            }
+        ];
+        var out = html_writer.build(issues, working_times, enriched, active);
+        expect(out).to.contain('Aging WIP');
+        expect(out).to.contain('DEMO-501');
     });
 
     it('omits chart SVGs when include_metrics is false', function () {
