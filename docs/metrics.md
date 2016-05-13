@@ -73,3 +73,9 @@ When `include_metrics` is true and the writer is `html`, the report appends a `<
 By default the CFD back-derives entry timestamps from `resolved_at` minus the durations in `times_array`, which assumes forward-only flow. Set `include_changelog: true` in `project_config.json` and gojira fans out a `?expand=changelog` request per issue, then uses the real `status` transition timestamps Jira recorded. When real events are present the CFD title drops the "approximate" suffix.
 
 Costs: one extra HTTP request per issue. For large boards this can dominate run time — leave `include_changelog` off when you only need cycle-time/throughput numbers.
+
+## Aging WIP
+
+Set `include_aging_wip: true` in `project_config.json` and gojira issues a second JQL search (`status!=Done`) to fetch items currently in flight. The aging WIP chart shows one horizontal bar per active item, sorted longest-aging first, coloured by status. When `include_changelog` is also on, the "days in current status" comes from the actual transition into that status; without it, the chart falls back to days since `created`.
+
+In the HTML report the charts panel renders in a responsive 2-column grid — one row of cards for every two charts on a wide screen, single-column on phones.

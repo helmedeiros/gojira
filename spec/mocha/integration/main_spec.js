@@ -125,4 +125,26 @@ describe('main.run (integration)', function () {
                 fs.rmdirSync(charts_dir);
             });
     });
+
+    it('also writes aging_wip.svg when include_aging_wip is on', function () {
+        var charts_dir = path.join(os.tmpdir(), 'gojira-charts-aging-' + process.pid);
+        base_config.include_aging_wip = true;
+        axios_stub.onCall(2).returns(Promise.resolve({
+            data: { issues: [{
+                key: 'DEMO-501',
+                fields: {
+                    status: { name: 'In Progress' },
+                    created: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
+                }
+            }] }
+        }));
+        return main.run({ output_csv_path: output_path, charts_dir: charts_dir })
+            .then(function () {
+                var files = fs.readdirSync(charts_dir).sort();
+                expect(files).to.include('aging_wip.svg');
+                expect(fs.readFileSync(path.join(charts_dir, 'aging_wip.svg'), 'utf8')).to.contain('DEMO-501');
+                files.forEach(function (name) { fs.unlinkSync(path.join(charts_dir, name)); });
+                fs.rmdirSync(charts_dir);
+            });
+    });
 });
