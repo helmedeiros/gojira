@@ -97,9 +97,12 @@ Then edit <b>project_config.json</b> with your credentials and project settings.
 <b>points_per_day</b>: The factor to use to calculate projected lead time for stories. Default is 1.25 (meaning a pair can finish a 4-point story in a 2-week sprint).<br />
 <b>first_column_to_count</b>: Defines the first column to be counted in the sum for Actual Lead Time. Default is 1, meaning the second column (i.e. skipping Backlog). If you have an intermediate stage between Backlog and In Progress (e.g. Ready for Dev), set this to 2.<br />
 <b>request_timeout_ms</b>: How long to wait for a Jira HTTP response before failing. Default is 30000 (30 seconds).<br />
-<b>output_format</b>: One of <i>csv</i>, <i>json</i> or <i>markdown</i>. Default is <i>csv</i>.<br />
+<b>output_format</b>: One of <i>csv</i>, <i>json</i>, <i>markdown</i> or <i>html</i>. Default is <i>csv</i>.<br />
 <b>output_target</b>: One of <i>file</i> (writes to <i>output_csv_path</i>) or <i>stdout</i>. Default is <i>file</i>.<br />
 <b>story_points_field</b>: Jira custom field id that holds the story-point estimate. Default is <i>customfield_10003</i>. Override if your Jira instance maps points to a different custom field.<br />
+<b>include_metrics</b>: When <i>true</i>, the HTML report adds a summary panel and a 2-column charts grid; the JSON writer wraps its output as <i>{summary, lines}</i>. Default is <i>false</i>.<br />
+<b>include_changelog</b>: When <i>true</i>, gojira fans out an <i>?expand=changelog</i> request per issue so the CFD uses real status-transition timestamps. Costs one extra HTTP request per issue. Default is <i>false</i>.<br />
+<b>include_aging_wip</b>: When <i>true</i>, gojira also fetches active items (status != Done) and renders an aging-WIP chart. Default is <i>false</i>.<br />
 
 ## Metrics
 
