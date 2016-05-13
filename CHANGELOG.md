@@ -2,6 +2,21 @@
 
 All notable changes to this project are documented here.
 
+## 1.13.0 — 2016-05-13
+
+### Added
+- `include_aging_wip` config flag — when true, gojira fetches active issues via `status!=Done` and renders an aging-WIP horizontal-bar chart (one row per active item, sorted longest-aging first, coloured by current status).
+- `lib/active_loader.js` — sibling of `issues_loader` for the `status!=Done` query, with optional changelog enrichment.
+- `lib/charts/aging_wip.js` — horizontal-bar chart for active items.
+- `lib/url.js` `issues()` accepts an optional `status_filter` so the active query can reuse the same URL builder.
+- HTML writer renders the charts panel as a responsive 2-column CSS grid (single column under 720px).
+
+### Changed
+- `extract.run` now returns `{ output, issues, working_times, active_issues }` and threads `active_issues` into the writer.
+- `chart_builder.build(lines, config, extras)` accepts `extras.active_issues` and `extras.now_ms` and appends `aging_wip.svg` when the active set is non-empty.
+- HTML writer's `build` signature gains an optional `active_issues` argument.
+- Demo seeds five active items so the live demo's aging-WIP chart is populated.
+
 ## 1.12.0 — 2016-05-04
 
 ### Added
