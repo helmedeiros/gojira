@@ -106,10 +106,10 @@ describe('issues_loader (integration)', function () {
             });
         });
 
-        it('falls through without enrichment when issues is null', function () {
+        it('falls through without enrichment when the search returns nothing', function () {
             stub.onCall(0).returns(Promise.resolve({ data: {} }));
             return issues_loader.load(config).then(function (issues) {
-                expect(issues).to.equal(undefined);
+                expect(issues).to.eql([]);
                 expect(stub.callCount).to.equal(1);
             });
         });
