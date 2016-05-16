@@ -8,7 +8,7 @@ describe('url', function () {
         var generated = url.issues(base_url, 'DEMO', 'Example Component', 'Application', '100', 'a_user', 'a_password');
 
         expect(generated).to.equal(
-            'https://jira.example.com/rest/api/2/search?jql=project=DEMO+and+status=Done+and+component="Example Component"+and+"Work Group"="Application"+and+type=Story&maxResults=100&os_username=a_user&os_password=a_password'
+            'https://jira.example.com/rest/api/2/search?jql=project=DEMO+and+status=Done+and+component="Example Component"+and+"Work Group"="Application"+and+type=Story&maxResults=100&startAt=0&os_username=a_user&os_password=a_password'
         );
     });
 
@@ -16,7 +16,7 @@ describe('url', function () {
         var generated = url.issues(base_url, 'DEMO', '', null, null, 'a_user', 'a_password');
 
         expect(generated).to.equal(
-            'https://jira.example.com/rest/api/2/search?jql=project=DEMO+and+status=Done+and+type=Story&maxResults=300&os_username=a_user&os_password=a_password'
+            'https://jira.example.com/rest/api/2/search?jql=project=DEMO+and+status=Done+and+type=Story&maxResults=300&startAt=0&os_username=a_user&os_password=a_password'
         );
     });
 
@@ -25,6 +25,13 @@ describe('url', function () {
 
         expect(generated).to.contain('jql=project=DEMO+and+status!=Done');
         expect(generated).to.contain('maxResults=50');
+    });
+
+    it('emits startAt=0 by default and the supplied value when given', function () {
+        var first = url.issues(base_url, 'DEMO', '', null, '50', 'u', 'p');
+        var second = url.issues(base_url, 'DEMO', '', null, '50', 'u', 'p', null, 100);
+        expect(first).to.contain('startAt=0');
+        expect(second).to.contain('startAt=100');
     });
 
     it('builds the json control chart url from the source url, user and dates', function () {
