@@ -103,6 +103,9 @@ Then edit <b>project_config.json</b> with your credentials and project settings.
 <b>include_metrics</b>: When <i>true</i>, the HTML report adds a summary panel and a 2-column charts grid; the JSON writer wraps its output as <i>{summary, lines}</i>. Default is <i>false</i>.<br />
 <b>include_changelog</b>: When <i>true</i>, gojira fans out an <i>?expand=changelog</i> request per issue so the CFD uses real status-transition timestamps. Costs one extra HTTP request per issue. Default is <i>false</i>.<br />
 <b>include_aging_wip</b>: When <i>true</i>, gojira also fetches active items (status != Done) and renders an aging-WIP chart. Default is <i>false</i>.<br />
+<b>issue_types</b>: Optional JSON array of issue types to fetch, e.g. <i>["Story", "Bug", "Task"]</i>. Omit the field (or set <i>null</i>) for the default <i>["Story"]</i>; use an empty array to remove the type filter entirely.<br />
+<b>changelog_concurrency</b>: Maximum number of parallel changelog HTTP requests fired by <i>include_changelog</i>. Default is 5.<br />
+<b>tls_reject_unauthorized</b>: When <i>true</i> (the default) the HTTP client verifies the Jira server's TLS certificate. Set to <i>false</i> only if your Jira sits behind an untrusted internal cert chain.<br />
 
 ## Metrics
 

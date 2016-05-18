@@ -2,6 +2,22 @@
 
 All notable changes to this project are documented here.
 
+## 1.14.0 — 2016-05-18
+
+### Added
+- `lib/paginated.js` — generic page-walker that loops on `startAt`/`total` until the search returns everything. Both `issues_loader` and `active_loader` now fetch every page; previously the report silently truncated at `max_results`.
+- `lib/concurrency.js` `map_with_limit(items, limit, mapper)` — bounded parallelism helper. The changelog fan-out used to fire one HTTP request per issue in parallel; it now respects `changelog_concurrency` (default 5).
+- `issue_types` config field. Default behaviour (no field set, or `null`) still filters to `Story`. Provide an array, e.g. `["Story", "Bug", "Task"]`, to widen the report. An empty array `[]` removes the type filter entirely.
+- `tls_reject_unauthorized` config field (default `true`).
+
+### Changed
+- **HTTP client now verifies TLS certificates by default.** Previously cert verification was disabled hard-coded. Set `"tls_reject_unauthorized": false` if you need to reach a Jira server with an untrusted cert chain.
+- `url.issues()` accepts `start_at` (paging) and `issue_types` as additional positional arguments.
+
+### Fixed
+- Reports against projects with more than `max_results` items silently lost the tail; pagination closes the gap.
+- Changelog enrichment no longer DoS-fans-out N parallel requests against Jira.
+
 ## 1.13.0 — 2016-05-13
 
 ### Added
