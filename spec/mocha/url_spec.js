@@ -34,6 +34,28 @@ describe('url', function () {
         expect(second).to.contain('startAt=100');
     });
 
+    it('defaults to type=Story when issue_types is not provided', function () {
+        var generated = url.issues(base_url, 'DEMO', '', null, '50', 'u', 'p');
+        expect(generated).to.contain('type=Story');
+    });
+
+    it('emits a single type= clause for one issue type', function () {
+        var generated = url.issues(base_url, 'DEMO', '', null, '50', 'u', 'p', null, null, ['Bug']);
+        expect(generated).to.contain('type=Bug');
+        expect(generated).to.not.contain('type=Story');
+    });
+
+    it('emits a type in (...) clause for multiple types', function () {
+        var generated = url.issues(base_url, 'DEMO', '', null, '50', 'u', 'p', null, null, ['Story', 'Bug', 'Task']);
+        expect(generated).to.contain('type in (Story,Bug,Task)');
+    });
+
+    it('omits the type clause entirely when issue_types is an empty array', function () {
+        var generated = url.issues(base_url, 'DEMO', '', null, '50', 'u', 'p', null, null, []);
+        expect(generated).to.not.contain('type=');
+        expect(generated).to.not.contain('type in');
+    });
+
     it('builds the json control chart url from the source url, user and dates', function () {
         var control_chart =
             'https://jira.example.com/secure/RapidBoard.jspa?rapidView=1853&view=reporting&chart=controlChart&swimlane=12000&swimlane=10450&swimlane=11466&swimlane=11263&swimlane=11138&swimlane=10926&swimlane=7060&swimlane=7764&swimlane=7062&swimlane=7061&swimlane=7058&column=4325&column=4328&column=4334&days=7';
