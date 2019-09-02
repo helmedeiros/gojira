@@ -106,6 +106,8 @@ Then edit <b>project_config.json</b> with your credentials and project settings.
 <b>issue_types</b>: Optional JSON array of issue types to fetch, e.g. <i>["Story", "Bug", "Task"]</i>. Omit the field (or set <i>null</i>) for the default <i>["Story"]</i>; use an empty array to remove the type filter entirely.<br />
 <b>changelog_concurrency</b>: Maximum number of parallel changelog HTTP requests fired by <i>include_changelog</i>. Default is 5.<br />
 <b>tls_reject_unauthorized</b>: When <i>true</i> (the default) the HTTP client verifies the Jira server's TLS certificate. Set to <i>false</i> only if your Jira sits behind an untrusted internal cert chain.<br />
+<b>email</b> + <b>api_token</b>: Atlassian Cloud (and any modern Jira Server) deprecated password authentication. Generate an API token at <i>id.atlassian.com/manage-profile/security/api-tokens</i>, then set <i>email</i> to the account email and <i>api_token</i> to the token. gojira will send credentials as an <i>Authorization: Basic</i> header and suppress the legacy <i>os_username</i> query-string auth automatically.<br />
+<b>user</b> + <b>password</b>: Legacy auth path. Still supported when <i>api_token</i> is absent; emits <i>&os_username=...&os_password=...</i> in the URL (only works against older Jira Server installs).<br />
 
 ## Metrics
 
