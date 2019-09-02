@@ -42,4 +42,25 @@ describe('http.get', function () {
                 expect(err.message).to.equal('boom');
             });
     });
+
+    it('applies HTTP Basic auth when configured with user/password', function () {
+        http.configure({ user: 'me@example.com', password: 'a_token' });
+        stub.returns(Promise.resolve({ data: {} }));
+
+        return http.get('https://jira.example.com/rest/api/2/search').then(function () {
+            var options = stub.firstCall.args[1];
+            expect(options.auth).to.eql({ username: 'me@example.com', password: 'a_token' });
+            http.configure({});
+        });
+    });
+
+    it('omits the auth option entirely when no user is configured', function () {
+        http.configure({});
+        stub.returns(Promise.resolve({ data: {} }));
+
+        return http.get('https://jira.example.com/rest/api/2/search').then(function () {
+            var options = stub.firstCall.args[1];
+            expect(options.auth).to.be.undefined;
+        });
+    });
 });
