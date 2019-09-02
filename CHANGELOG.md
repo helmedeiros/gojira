@@ -2,6 +2,16 @@
 
 All notable changes to this project are documented here.
 
+## 1.15.0 — 2019-09-02
+
+### Added
+- `api_token` and `email` config fields for HTTP Basic authentication against Atlassian Cloud (passwords stopped working when Atlassian deprecated basic-password auth in 2019).
+- `http.configure({user, password})` applies the credentials as an axios `auth` option, which axios sends as an `Authorization: Basic` header.
+
+### Changed
+- When `api_token` is present, `main` automatically clears `config.user`/`config.password` so the URL builders stop appending the legacy `os_username` / `os_password` query string. The two auth styles no longer collide.
+- The legacy `user` / `password` query-string flow still works when `api_token` is absent — useful only for older self-hosted Jira Server.
+
 ## 1.14.0 — 2016-05-18
 
 ### Added
