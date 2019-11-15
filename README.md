@@ -1,6 +1,6 @@
 # gojira
 
-[![Build Status](https://travis-ci.org/helmedeiros/gojira.svg?branch=master)](https://travis-ci.org/helmedeiros/gojira)
+[![CI](https://github.com/helmedeiros/gojira/actions/workflows/ci.yml/badge.svg)](https://github.com/helmedeiros/gojira/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Extract Jira issues and control-chart durations into CSV, JSON, Markdown or HTML reports.
