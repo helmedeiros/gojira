@@ -2,6 +2,19 @@
 
 All notable changes to this project are documented here.
 
+## 1.16.0 — 2023-11-08
+
+### Added
+- `.github/workflows/ci.yml` — GitHub Actions workflow runs `lint`, `coverage`, and `coverage:check` on every push and pull request. Replaces the dead Travis CI config.
+- `package-lock.json` is now committed so installs are reproducible.
+
+### Changed
+- `axios` bumped from `0.7.x` to `^1.6.0`, closing the CSRF advisory that affected `<=0.31.1`. Our usage (`axios.get`, request interceptor, `httpsAgent`, `auth`) is unchanged in 1.x. Runtime `npm audit --omit=dev` now reports zero vulnerabilities.
+- README badge swapped from Travis to the Actions workflow.
+
+### Removed
+- `.travis.yml` (Travis killed its free OSS tier in 2020).
+
 ## 1.15.0 — 2019-09-02
 
 ### Added
