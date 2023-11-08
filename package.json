@@ -42,7 +42,7 @@
     "node": ">=4"
   },
   "dependencies": {
-    "axios": "^0.7.0",
+    "axios": "^1.6.0",
     "commander": "^2.9.0"
   },
   "devDependencies": {
