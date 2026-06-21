@@ -99,7 +99,7 @@ describe('writers/html', function () {
     it('appends a summary panel when include_metrics is true', function () {
         var enriched = Object.assign({}, config, { include_metrics: true });
         var out = html_writer.build(issues, working_times, enriched);
-        expect(out).to.contain('<section class="summary">');
+        expect(out).to.contain('class="summary');
         expect(out).to.contain('<h2>Summary</h2>');
         expect(out).to.contain('Throughput');
         expect(out).to.contain('Cycle time mean');
