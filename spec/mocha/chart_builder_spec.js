@@ -25,13 +25,14 @@ describe('chart_builder', function () {
 
     it('returns one file per chart', function () {
         var charts = chart_builder.build(lines, config);
-        expect(charts).to.have.length(5);
+        expect(charts).to.have.length(6);
     });
 
     it('emits expected file names', function () {
         var names = chart_builder.build(lines, config).map(function (c) { return c.name; });
         expect(names).to.include('cfd.svg');
         expect(names).to.include('cycle_time_histogram.svg');
+        expect(names).to.include('lead_time_histogram.svg');
         expect(names).to.include('cycle_time_scatter.svg');
         expect(names).to.include('throughput_by_week.svg');
         expect(names).to.include('time_in_column.svg');
@@ -47,7 +48,7 @@ describe('chart_builder', function () {
 
     it('still produces all charts when lines are sparse', function () {
         var charts = chart_builder.build([{ key: 'X' }], config);
-        expect(charts).to.have.length(5);
+        expect(charts).to.have.length(6);
         charts.forEach(function (chart) {
             expect(chart.svg).to.contain('<svg');
         });

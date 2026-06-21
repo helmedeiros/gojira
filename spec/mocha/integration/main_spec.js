@@ -114,6 +114,7 @@ describe('main.run (integration)', function () {
                     'cfd.svg',
                     'cycle_time_histogram.svg',
                     'cycle_time_scatter.svg',
+                    'lead_time_histogram.svg',
                     'throughput_by_week.svg',
                     'time_in_column.svg'
                 ]);
