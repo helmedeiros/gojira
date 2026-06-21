@@ -100,25 +100,6 @@
     </figure>
     <figure>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 240" width="480" height="240">
-    <text x="240" y="14" fill="#24292e" text-anchor="middle" font-size="12">Lead time distribution (days)</text>
-    <line x1="40" y1="200" x2="460" y2="200" stroke="#d1d5da" stroke-width="1"/>
-    <line x1="40" y1="20" x2="40" y2="200" stroke="#d1d5da" stroke-width="1"/>
-    <rect x="41" y="20" width="50.5" height="180" fill="#0366d6"/>
-    <rect x="93.5" y="200" width="50.5" height="0" fill="#0366d6"/>
-    <rect x="146" y="200" width="50.5" height="0" fill="#0366d6"/>
-    <rect x="198.5" y="20" width="50.5" height="180" fill="#0366d6"/>
-    <rect x="251" y="110" width="50.5" height="90" fill="#0366d6"/>
-    <rect x="303.5" y="110" width="50.5" height="90" fill="#0366d6"/>
-    <rect x="356" y="200" width="50.5" height="0" fill="#0366d6"/>
-    <rect x="408.5" y="110" width="50.5" height="90" fill="#0366d6"/>
-    <text x="40" y="216" fill="#586069" text-anchor="start" font-size="11">2</text>
-    <text x="460" y="216" fill="#586069" text-anchor="end" font-size="11">25</text>
-    <text x="34" y="24" fill="#586069" text-anchor="end" font-size="11">2</text>
-    </svg>
-    <figcaption>Wall-clock days from issue creation to resolution — includes queue/backlog time. Compare with the cycle-time histogram to see waiting vs in-flight time.</figcaption>
-    </figure>
-    <figure>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 240" width="480" height="240">
     <text x="240" y="14" fill="#24292e" text-anchor="middle" font-size="12">Cycle time over time</text>
     <line x1="40" y1="200" x2="460" y2="200" stroke="#d1d5da" stroke-width="1"/>
     <line x1="40" y1="20" x2="40" y2="200" stroke="#d1d5da" stroke-width="1"/>
@@ -135,6 +116,25 @@
     <text x="34" y="204" fill="#586069" text-anchor="end" font-size="11">0</text>
     </svg>
     <figcaption>Each dot is one issue: x = resolution date, y = cycle time in days.</figcaption>
+    </figure>
+    <figure>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 240" width="480" height="240">
+    <text x="240" y="14" fill="#24292e" text-anchor="middle" font-size="12">Lead time distribution (days)</text>
+    <line x1="40" y1="200" x2="460" y2="200" stroke="#d1d5da" stroke-width="1"/>
+    <line x1="40" y1="20" x2="40" y2="200" stroke="#d1d5da" stroke-width="1"/>
+    <rect x="41" y="20" width="50.5" height="180" fill="#0366d6"/>
+    <rect x="93.5" y="200" width="50.5" height="0" fill="#0366d6"/>
+    <rect x="146" y="200" width="50.5" height="0" fill="#0366d6"/>
+    <rect x="198.5" y="20" width="50.5" height="180" fill="#0366d6"/>
+    <rect x="251" y="110" width="50.5" height="90" fill="#0366d6"/>
+    <rect x="303.5" y="110" width="50.5" height="90" fill="#0366d6"/>
+    <rect x="356" y="200" width="50.5" height="0" fill="#0366d6"/>
+    <rect x="408.5" y="110" width="50.5" height="90" fill="#0366d6"/>
+    <text x="40" y="216" fill="#586069" text-anchor="start" font-size="11">2</text>
+    <text x="460" y="216" fill="#586069" text-anchor="end" font-size="11">25</text>
+    <text x="34" y="24" fill="#586069" text-anchor="end" font-size="11">2</text>
+    </svg>
+    <figcaption>Wall-clock days from issue creation to resolution — includes queue/backlog time. Compare with the cycle-time histogram to see waiting vs in-flight time.</figcaption>
     </figure>
     <figure>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 240" width="480" height="240">
@@ -180,24 +180,24 @@
     </svg>
     <figcaption>How long each issue spent in each status column.</figcaption>
     </figure>
-    <figure class="span-full">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 340" width="1040" height="340">
-    <text x="520" y="14" fill="#24292e" text-anchor="middle" font-size="12">Aging WIP</text>
+    <figure>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320" width="600" height="320">
+    <text x="300" y="14" fill="#24292e" text-anchor="middle" font-size="12">Aging WIP</text>
     <text x="122" y="55" fill="#586069" text-anchor="end" font-size="11" font-family="SFMono-Regular, Menlo, monospace">DEMO-201</text>
-    <rect x="130" y="43" width="858" height="16" fill="#0366d6"/>
-    <text x="992" y="55" fill="#586069" text-anchor="start" font-size="11">18d</text>
+    <rect x="130" y="43" width="418" height="16" fill="#0366d6"/>
+    <text x="552" y="55" fill="#586069" text-anchor="start" font-size="11">18d</text>
     <text x="122" y="77" fill="#586069" text-anchor="end" font-size="11" font-family="SFMono-Regular, Menlo, monospace">DEMO-204</text>
-    <rect x="130" y="65" width="524.3333333333334" height="16" fill="#f9826c"/>
-    <text x="658.3333333333334" y="77" fill="#586069" text-anchor="start" font-size="11">11d</text>
+    <rect x="130" y="65" width="255.44444444444446" height="16" fill="#f9826c"/>
+    <text x="389.44444444444446" y="77" fill="#586069" text-anchor="start" font-size="11">11d</text>
     <text x="122" y="99" fill="#586069" text-anchor="end" font-size="11" font-family="SFMono-Regular, Menlo, monospace">DEMO-202</text>
-    <rect x="130" y="87" width="286" height="16" fill="#6f42c1"/>
-    <text x="420" y="99" fill="#586069" text-anchor="start" font-size="11">6d</text>
+    <rect x="130" y="87" width="139.33333333333331" height="16" fill="#6f42c1"/>
+    <text x="273.3333333333333" y="99" fill="#586069" text-anchor="start" font-size="11">6d</text>
     <text x="122" y="121" fill="#586069" text-anchor="end" font-size="11" font-family="SFMono-Regular, Menlo, monospace">DEMO-203</text>
-    <rect x="130" y="109" width="190.66666666666666" height="16" fill="#0366d6"/>
-    <text x="324.66666666666663" y="121" fill="#586069" text-anchor="start" font-size="11">4d</text>
+    <rect x="130" y="109" width="92.88888888888889" height="16" fill="#0366d6"/>
+    <text x="226.88888888888889" y="121" fill="#586069" text-anchor="start" font-size="11">4d</text>
     <text x="122" y="143" fill="#586069" text-anchor="end" font-size="11" font-family="SFMono-Regular, Menlo, monospace">DEMO-205</text>
-    <rect x="130" y="131" width="95.33333333333333" height="16" fill="#0366d6"/>
-    <text x="229.33333333333331" y="143" fill="#586069" text-anchor="start" font-size="11">2d</text>
+    <rect x="130" y="131" width="46.44444444444444" height="16" fill="#0366d6"/>
+    <text x="180.44444444444446" y="143" fill="#586069" text-anchor="start" font-size="11">2d</text>
     <rect x="130" y="158" width="12" height="12" fill="#0366d6"/><text x="146" y="168" fill="#586069" text-anchor="start" font-size="11">In Progress</text>
     <rect x="240" y="158" width="12" height="12" fill="#f9826c"/><text x="256" y="168" fill="#586069" text-anchor="start" font-size="11">QA</text>
     <rect x="350" y="158" width="12" height="12" fill="#6f42c1"/><text x="366" y="168" fill="#586069" text-anchor="start" font-size="11">Code Review</text>
